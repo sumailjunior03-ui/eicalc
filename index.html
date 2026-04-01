@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EI Calculator | eicalc.ca</title>
+  <meta name="description" content="Calculate your Employment Insurance (EI) contributions for 2026. Enter your annual insurable earnings to instantly estimate your EI deductions as a Canadian employee." />
+  <link rel="canonical" href="https://eicalc.ca/index.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍁</text></svg>" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EI Calculator",
+    "url": "https://eicalc.ca",
+    "description": "Free Employment Insurance (EI) contribution estimator for Canadian employees. Calculate your EI deductions based on current ESDC rates and maximum insurable earnings.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CAD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "EI Calculator",
+      "url": "https://eicalc.ca"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --teal:       #00667a;
+      --teal-dark:  #004f5e;
+      --teal-light: #e0f4f7;
+      --navy:       #0d2137;
+      --navy-mid:   #163652;
+      --slate:      #2e4a60;
+      --mist:       #edf4f6;
+      --mist-dark:  #d4e6eb;
+      --white:      #ffffff;
+      --off-white:  #f7fafc;
+      --text:       #1a2b38;
+      --text-mid:   #2e4455;
+      --text-light: #5c7a8a;
+      --border:     #cddee6;
+      --success:    #0e6e3f;
+      --gold:       #c88a00;
+      --gold-light: #fff8e0;
+      --radius:     10px;
+      --radius-lg:  16px;
+      --shadow-sm:  0 1px 4px rgba(13,33,55,0.08);
+      --shadow-md:  0 4px 16px rgba(13,33,55,0.12);
+      --shadow-lg:  0 8px 32px rgba(13,33,55,0.16);
+      --font-head:  'Georgia', 'Times New Roman', serif;
+      --font-body:  'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--off-white);
+    }
+
+    /* ── Site Header ── */
+    .site-header {
+      background: var(--navy);
+      border-bottom: 3px solid var(--teal);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-maple { font-size: 22px; line-height: 1; }
+    .logo-text {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      color: var(--white);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .logo-text span { color: #4dd4e8; }
+    .site-nav { display: flex; gap: 6px; }
+    .site-nav a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .site-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--slate) 100%);
+      padding: 56px 24px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner { position: relative; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,102,122,0.3);
+      border: 1px solid rgba(77,212,232,0.4);
+      color: #a0eaf5;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Main Layout ── */
+    .main-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* ── Calculator Card ── */
+    .calc-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      margin: -28px auto 40px;
+      max-width: 860px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+      z-index: 10;
+    }
+    .calc-header {
+      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%);
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .calc-header h2 {
+      font-family: var(--font-head);
+      color: var(--white);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .calc-header .calc-icon { font-size: 1.3rem; }
+
+    .trust-strip {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 9px 18px;
+      background: var(--mist);
+      border-bottom: 1px solid var(--mist-dark);
+      font-size: 0.8rem;
+      color: var(--text-light);
+      flex-wrap: wrap;
+    }
+    .trust-strip .ts-item { display: flex; align-items: center; gap: 5px; }
+    .trust-strip .ts-item strong { color: var(--navy); font-weight: 600; }
+    .trust-strip .ts-sep { color: var(--border); }
+
+    .calc-body { padding: 32px 36px; }
+
+    /* Input */
+    .input-group { margin-bottom: 24px; }
+    .input-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .input-group label .label-sub {
+      font-weight: 400;
+      color: var(--text-light);
+      font-size: 0.82rem;
+    }
+    .input-wrap { position: relative; display: flex; align-items: center; }
+    .input-prefix {
+      position: absolute;
+      left: 14px;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .input-wrap input[type="number"] {
+      width: 100%;
+      padding: 13px 14px 13px 30px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1.05rem;
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--off-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -moz-appearance: textfield;
+    }
+    .input-wrap input[type="number"]::-webkit-inner-spin-button,
+    .input-wrap input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .input-wrap input[type="number"]:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0,102,122,0.12);
+      background: var(--white);
+    }
+
+    /* Calculate Button */
+    .btn-calculate {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: var(--font-body);
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(0,102,122,0.3);
+      margin-top: 8px;
+    }
+    .btn-calculate:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,102,122,0.4); }
+    .btn-calculate:active { transform: translateY(0); }
+
+    /* Results */
+    .results-section { display: none; margin-top: 28px; }
+    .results-section.visible { display: block; }
+    .results-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+    .results-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .result-item {
+      background: var(--mist);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      border-left: 4px solid var(--navy);
+    }
+    .result-item.highlight { background: var(--teal-light); border-left-color: var(--teal); }
+    .result-item .r-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .result-item .r-value {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--navy);
+      font-family: var(--font-head);
+      line-height: 1;
+    }
+    .result-item.highlight .r-value { color: var(--teal-dark); }
+
+    .results-breakdown {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .results-breakdown h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .breakdown-row:last-child { border-bottom: none; }
+    .breakdown-row .br-label { color: var(--text-mid); }
+    .breakdown-row .br-val { font-weight: 700; color: var(--text); font-family: monospace; font-size: 0.95rem; }
+
+    .results-note {
+      background: var(--gold-light);
+      border: 1px solid #e8cc6a;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 0.83rem;
+      color: #6b4c00;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* ── Content Sections ── */
+    .section { max-width: 860px; margin: 0 auto 48px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--mist-dark);
+    }
+    .section-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section h2 { font-family: var(--font-head); font-size: 1.4rem; color: var(--navy); line-height: 1.3; }
+    .section h3 { font-family: var(--font-head); font-size: 1.1rem; color: var(--navy); margin: 20px 0 10px; }
+    .section p { color: var(--text-mid); margin-bottom: 14px; font-size: 0.97rem; }
+    .section ul, .section ol { color: var(--text-mid); margin-bottom: 14px; padding-left: 24px; }
+    .section li { margin-bottom: 6px; font-size: 0.97rem; }
+
+    /* Info Cards */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .info-card .ic-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .info-card .ic-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .info-card .ic-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
+
+    /* Example Box */
+    .example-box {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      color: rgba(255,255,255,0.9);
+      margin: 20px 0;
+    }
+    .example-box h3 { color: var(--white); font-family: var(--font-head); margin-bottom: 16px; }
+    .example-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.92rem;
+    }
+    .example-row:last-child { border-bottom: none; }
+    .example-row .ex-label { color: rgba(255,255,255,0.72); }
+    .example-row .ex-val { font-weight: 700; color: var(--white); font-family: monospace; }
+    .example-row.total .ex-label { color: rgba(255,255,255,0.9); font-weight: 600; }
+    .example-row.total .ex-val { color: #7ee8f5; font-size: 1.05rem; }
+
+    /* Formula Box */
+    .formula-box {
+      background: var(--white);
+      border: 2px solid var(--navy);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin: 20px 0;
+      font-family: 'Georgia', serif;
+    }
+    .formula-line {
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--mist-dark);
+      font-size: 0.93rem;
+      color: var(--text);
+    }
+    .formula-line:last-child { border-bottom: none; }
+    .formula-line .f-label { color: var(--text-light); font-size: 0.82rem; margin-right: 8px; }
+    .formula-line code {
+      background: var(--mist);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+
+    /* Scenarios Table */
+    .scenarios-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+    .scenarios-table thead { background: var(--navy); color: var(--white); }
+    .scenarios-table th { padding: 12px 16px; text-align: left; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; }
+    .scenarios-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text-mid); }
+    .scenarios-table tbody tr:last-child td { border-bottom: none; }
+    .scenarios-table tbody tr:hover { background: var(--mist); }
+    .scenarios-table td strong { color: var(--text); }
+
+    /* FAQ */
+    .faq-list { margin: 20px 0; }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 16px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-body);
+      gap: 12px;
+    }
+    .faq-q:hover { background: var(--mist); }
+    .faq-arrow { font-size: 0.75rem; transition: transform 0.25s; color: var(--teal); flex-shrink: 0; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      display: none;
+      padding: 4px 20px 18px;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* Related calculators */
+    #network-related-calculators {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .related-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+    .related-card:hover { border-color: var(--teal); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .related-card-name { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+    .related-card-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
+    .related-card-link { font-size: 0.82rem; font-weight: 600; color: var(--teal); margin-top: 4px; }
+
+    /* Disclaimer Banner */
+    .disclaimer-banner {
+      max-width: 860px;
+      margin: 0 auto 32px;
+      background: var(--mist);
+      border: 1px solid var(--mist-dark);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      font-size: 0.84rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .disclaimer-banner .disc-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--navy);
+      border-top: 3px solid var(--teal);
+      color: rgba(255,255,255,0.7);
+      margin-top: 60px;
+    }
+    #network-footer { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding: 48px 0 36px;
+    }
+    .footer-col h4 { color: var(--white); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .footer-col p { font-size: 0.85rem; line-height: 1.6; margin-bottom: 10px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem; padding: 3px 0; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-email a { display: inline; color: #7ee8f5; }
+    .footer-hub-desc { display: block; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 18px 0; font-size: 0.8rem; color: rgba(255,255,255,0.4); text-align: center; }
+    .footer-bottom p { margin: 3px 0; }
+
+    @media (max-width: 768px) {
+      .calc-body { padding: 20px 18px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .site-nav { display: none; }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+      .scenarios-table { font-size: 0.82rem; }
+      .scenarios-table th, .scenarios-table td { padding: 9px 10px; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 36px 16px 40px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7744853829365165" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <span class="logo-maple">🍁</span>
+      <span class="logo-text">EI<span>Calc</span>.ca</span>
+    </a>
+    <nav class="site-nav">
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🍁 Employment Insurance — Canada</div>
+    <h1>EI Calculator</h1>
+    <p>Estimate your Employment Insurance (EI) deductions for <span id="hero-year">2026</span> based on your annual insurable earnings. Instant, browser-only calculation.</p>
+  </div>
+</section>
+
+<div class="main-content">
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 1 — CALCULATOR TOOL
+  ══════════════════════════════════════════════ -->
+  <div id="calculator" class="section" style="margin-top: 0;">
+    <div class="calc-card">
+      <div class="calc-header">
+        <span class="calc-icon">🧮</span>
+        <h2>Calculator Tool</h2>
+      </div>
+      <div class="trust-strip">
+        <span class="ts-item">📅 <strong id="trust-tax-year">Loading rates…</strong></span>
+        <span class="ts-sep">|</span>
+        <span class="ts-item">🕐 <strong id="trust-last-updated">Loading…</strong></span>
+        <span class="ts-sep">|</span>
+        <span class="ts-item">Estimates only — not official ESDC output</span>
+      </div>
+      <div class="calc-body">
+
+        <div class="input-group">
+          <label for="income">
+            Annual Insurable Earnings
+            <span class="label-sub"> — Gross employment income eligible for EI (CAD)</span>
+          </label>
+          <div class="input-wrap">
+            <span class="input-prefix">$</span>
+            <input type="number" id="income" placeholder="e.g. 55000" min="0" max="9999999" step="100" />
+          </div>
+        </div>
+
+        <button class="btn-calculate" onclick="calculateEI()">Calculate EI Contributions</button>
+
+        <!-- Results -->
+        <div class="results-section" id="resultsSection">
+          <div class="results-divider"></div>
+          <div class="results-label">Your Estimated EI Contributions</div>
+
+          <div class="results-grid" id="resultsGrid">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="results-breakdown" id="resultsBreakdown">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="results-note" id="resultsNote">
+            ⚠️ <strong>Estimate Only:</strong> This calculator uses 2026 EI rates. Results are for informational purposes only and do not constitute official ESDC calculations. Actual deductions may vary based on your employment situation and province.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 2 — WHEN THIS CALCULATOR IS USEFUL
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2>When This Calculator Is Useful</h2>
+    </div>
+    <p>The EI Calculator is designed for Canadian employees who want to understand how much of their income goes toward Employment Insurance — one of the mandatory deductions on every Canadian paycheque. It is relevant in several common situations:</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="ic-icon">💼</div>
+        <div class="ic-title">Starting a New Job</div>
+        <div class="ic-desc">Understand your take-home pay by seeing exactly how much EI will be withheld from your paycheque based on your annual salary.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">📊</div>
+        <div class="ic-title">Annual Tax Budgeting</div>
+        <div class="ic-desc">When estimating your total payroll deductions, knowing your EI contributions helps complete the picture alongside CPP and income tax.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🔍</div>
+        <div class="ic-title">Verifying Paystubs</div>
+        <div class="ic-desc">Cross-check your employer's EI deductions against this estimate to confirm they match the expected rates and annual cap.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🎯</div>
+        <div class="ic-title">Comparing Job Offers</div>
+        <div class="ic-desc">When evaluating different salaries or hourly rates, understanding mandatory deductions like EI helps you compare true take-home pay.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">📅</div>
+        <div class="ic-title">Part-Year Income Estimation</div>
+        <div class="ic-desc">If you started a job mid-year or work seasonally, estimating your EI contributions helps you understand your actual annual net income.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🤔</div>
+        <div class="ic-title">Understanding Benefit Eligibility</div>
+        <div class="ic-desc">EI contributions are required to qualify for EI benefits. Understanding your contribution level helps frame eligibility discussions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 3 — WHAT THIS CALCULATOR DOES
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2>What This Calculator Does</h2>
+    </div>
+    <p id="what-it-does-intro">This tool estimates Employment Insurance (EI) contributions based on your gross annual insurable earnings. It applies the current EI contribution rules established by Employment and Social Development Canada (ESDC), including the annual Maximum Insurable Earnings (MIE) ceiling and the applicable employee contribution rate.</p>
+    <p>The calculator produces three primary outputs:</p>
+    <ul>
+      <li><strong>Employee EI Contribution:</strong> The EI amount deducted from your paycheque by your employer and remitted to the government on your behalf. This is the amount that directly affects your take-home pay.</li>
+      <li><strong>Employer EI Contribution:</strong> The amount your employer contributes on top of your deduction — equal to 1.4 times your employee contribution. This is an additional cost borne by the employer and does not come from your wages.</li>
+      <li><strong>Total EI Contribution:</strong> The combined amount flowing into the EI program annually from both you and your employer.</li>
+    </ul>
+    <p>All calculations run entirely in your browser. No income information is transmitted to any server. This tool does not store, share, or process your data in any way.</p>
+    <div class="disclaimer-banner">
+      <span class="disc-icon">ℹ️</span>
+      <span>This calculator uses publicly available EI rate information published by Employment and Social Development Canada (ESDC). It is an estimation tool. For official EI deduction amounts, consult your employer's payroll department or the Government of Canada at canada.ca.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 4 — EXAMPLE CALCULATION
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2>Example Calculation</h2>
+    </div>
+    <p id="example-calc-intro"><!-- Populated by JS --></p>
+    <div class="example-box" id="example-calc-box"><!-- Populated by JS --></div>
+    <p id="example-calc-outro"><!-- Populated by JS --></p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 5 — FORMULA
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2>Formula</h2>
+    </div>
+    <p>The Employment Insurance contribution formula is straightforward. ESDC defines insurable earnings as gross employment income up to the Maximum Insurable Earnings (MIE) ceiling. The employee contribution rate is applied to the lesser of your actual earnings or the MIE.</p>
+    <div class="formula-box" id="formula-box"><!-- Populated by JS --></div>
+    <p id="formula-note"><!-- Populated by JS --></p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 6 — CALCULATION METHODOLOGY
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <h2>Calculation Methodology</h2>
+    </div>
+    <p id="methodology-intro"><!-- Populated by JS --></p>
+    <h3>Rates and Thresholds Used</h3>
+    <ul id="methodology-rates"><!-- Populated by JS --></ul>
+    <h3>Scope and Limitations</h3>
+    <ul>
+      <li>This calculator assumes all income entered is insurable earnings as defined by ESDC. Not all income is insurable — see the Understanding section for details.</li>
+      <li>The calculator models full-year employment. If you started or ended employment mid-year, your actual EI deductions will reflect only the portion of the year worked.</li>
+      <li>Self-employed Canadians who have opted into the EI program for special benefits pay different rates and rules — this calculator models the standard employee deduction only.</li>
+      <li>Employees in Quebec pay into the Quebec Parental Insurance Plan (QPIP) and have a reduced EI rate. This calculator uses the standard non-Quebec employee rate.</li>
+      <li>The employer contribution is displayed for informational purposes. It does not affect your personal take-home pay.</li>
+    </ul>
+    <h3>Rounding</h3>
+    <p>All monetary outputs are rounded to the nearest cent. Per-period payroll rounding may cause minor differences between this annual estimate and the sum of your actual per-paycheque deductions.</p>
+    <h3>Quebec Note</h3>
+    <p>Quebec employees pay a reduced EI employee rate because they contribute separately to QPIP, which provides maternity and parental benefits. If you are a Quebec resident, your actual EI deductions will be lower than this estimate. Consult your employer or canada.ca for the current Quebec EI rate.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 7 — EXAMPLE SCENARIOS
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <h2>Example Scenarios</h2>
+    </div>
+    <p id="scenarios-intro"><!-- Populated by JS --></p>
+    <div id="scenarios-table-wrap"><!-- Populated by JS --></div>
+    <p id="scenarios-outro"><!-- Populated by JS --></p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 8 — UNDERSTANDING
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <h2>Understanding</h2>
+    </div>
+    <h3>Your Employee Contribution</h3>
+    <p>This is the dollar amount deducted from your gross pay each pay period and remitted to the government by your employer. You will see this as "EI" or "EI Premiums" on your paystub. Deductions continue throughout the year until you reach the annual maximum. Once reached, no further EI is deducted for the remainder of that calendar year.</p>
+    <h3>The Employer Contribution</h3>
+    <p id="understanding-employer"><!-- Populated by JS --></p>
+    <h3>Maximum Insurable Earnings (MIE)</h3>
+    <p id="understanding-mie"><!-- Populated by JS --></p>
+    <h3>What Counts as Insurable Earnings?</h3>
+    <p>Insurable earnings generally include wages, salaries, commissions, tips, and most other employment income paid to employees. Not all income is insurable — for example, income from self-employment (unless you've opted in), investment income, rental income, and certain pension payments are not subject to EI deductions. EI applies to employment income as defined under the Employment Insurance Act.</p>
+    <h3>What Happens When You Reach the Annual Maximum</h3>
+    <p id="understanding-max"><!-- Populated by JS --></p>
+    <h3>EI Contributions and Benefit Eligibility</h3>
+    <p>Making EI contributions does not automatically entitle you to EI benefits. Eligibility for EI benefits depends on additional factors: you must have worked a minimum number of insurable hours in the past year (which varies by region and the unemployment rate in your area), you must be unemployed through no fault of your own, and you must be available and actively looking for work. Contributing to EI is a necessary condition, but not the only one.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 9 — COMMON SCENARIOS
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <h2>Common Scenarios</h2>
+    </div>
+    <h3>Salaried Employee Under the MIE</h3>
+    <p id="scenario-under-mie"><!-- Populated by JS --></p>
+    <h3>Salaried Employee at or Above the MIE</h3>
+    <p id="scenario-at-mie"><!-- Populated by JS --></p>
+    <h3>Part-Year or Seasonal Employee</h3>
+    <p>An employee who works for only part of the year will pay EI on their actual insurable earnings for that period. If, for example, you earned $30,000 over six months, your EI contribution would be calculated on $30,000 — not a full-year annualized figure. Your employer deducts EI each pay period regardless of how long you've been employed. If you leave employment before reaching the annual maximum, your total contributions for the year will simply reflect what was deducted during your working period.</p>
+    <h3>Hourly Employee with Variable Income</h3>
+    <p>For hourly workers, EI is deducted from each paycheque based on that period's insurable earnings. The rate is consistent regardless of whether you work full-time or part-time hours. The annual maximum still applies — once your cumulative EI deductions reach the annual maximum, deductions stop for the rest of the year. Hourly workers who have periods of reduced hours will simply pay less EI in those periods.</p>
+    <h3>Higher-Income Employee Hitting the Cap</h3>
+    <p id="scenario-high-income"><!-- Populated by JS --></p>
+    <h3>Quebec Employee</h3>
+    <p>Quebec employees pay a reduced EI premium rate compared to employees in other provinces and territories. This is because Quebec funds its own parental insurance program (QPIP) separately, which provides benefits that overlap with the federal EI program's maternity and parental provisions. Quebec employees pay EI premiums at the Quebec rate, which is lower than the standard rate, reflecting this provincial contribution.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 10 — FAQ
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <h2>FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is Employment Insurance (EI)? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Employment Insurance is a federal program administered by Employment and Social Development Canada (ESDC) that provides temporary income support to Canadians who lose their jobs, become ill, are pregnant or caring for a newborn, or need to care for a seriously ill family member. Both employees and employers contribute to the EI program through payroll deductions. Contributions build entitlement to benefits when qualifying life events occur.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Who is required to pay EI premiums? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a" id="faq-who">Most employees in Canada who earn employment income are required to pay EI premiums. This includes full-time, part-time, temporary, and casual workers. Self-employed individuals are generally exempt unless they have voluntarily opted into the EI program. Certain family members working for a corporation controlled by a related person may be exempt depending on whether the employment is insurable.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the Maximum Insurable Earnings (MIE)? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a" id="faq-mie">The Maximum Insurable Earnings is the annual income ceiling above which EI premiums are not deducted. Once your insurable earnings for the year reach the MIE, your employer stops deducting EI premiums for the remainder of the calendar year. The MIE is set annually by ESDC and typically increases each year in line with wage growth. In 2026, the MIE is $68,900.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why does my employer pay more EI than I do? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a" id="faq-employer-rate">Employers are required by law to contribute 1.4 times the employee EI premium for each employee. This employer contribution does not come from your wages — it is an additional cost the employer bears on top of your salary. The rationale is that employers benefit from the EI system because it allows them to temporarily lay off employees during slow periods with the assurance that those workers can receive income support, making it easier to rehire them when business picks up.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do I get EI premiums back if I never make a claim? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">In most cases, no. EI premiums are not refunded if you never use the program — they function similarly to insurance premiums. However, low-income workers who pay EI premiums may receive a refund of part or all of their EI premiums through the Working Income Tax Benefit (now the Canada Workers Benefit) and related provisions on their annual T1 tax return. Check your specific situation with a tax professional.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is EI deducted in Quebec the same way? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. Quebec employees pay a reduced EI premium rate because Quebec operates its own Quebec Parental Insurance Plan (QPIP), which provides maternity, paternity, and parental benefits separately from the federal EI program. The federal EI program reduces its premium rate for Quebec employees to reflect that QPIP covers benefits that EI would otherwise cover. This calculator uses the standard non-Quebec rate. Quebec employees should use the QPIP-adjusted rate for accurate estimates.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How accurate is this calculator? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a" id="faq-accuracy">This calculator applies the officially published 2026 EI rates and MIE. For most full-year employees whose earnings are insurable employment income, the result will closely match your actual annual EI deductions. Differences may arise due to per-period payroll rounding, Quebec residency, having multiple employers in one year, or income types that are not fully insurable. For official figures, consult your employer's payroll department or canada.ca.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I opt out of EI premiums? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">In general, no. If you are an employee with insurable employment, EI premium deductions are mandatory. There is no mechanism for employees to opt out. Self-employed individuals are exempt by default but can opt in voluntarily to access special EI benefits such as maternity, parental, sickness, and compassionate care benefits. Once self-employed individuals opt in, they must maintain their participation for a minimum period.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is this an official Government of Canada tool? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">No. EICalc.ca is an independent estimation tool and is not affiliated with the Government of Canada, Employment and Social Development Canada (ESDC), or Service Canada. This tool is provided for informational and planning purposes only. For official EI information, visit canada.ca or contact Service Canada directly.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 11 — RELATED CALCULATORS
+  ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">11</div>
+      <h2>Related Calculators</h2>
+    </div>
+    <p>EI contributions are one piece of your total Canadian payroll deductions. These related tools help you build a complete picture of your take-home pay and employment costs:</p>
+    <div id="network-related-calculators">
+      <!-- Populated by network.js -->
+    </div>
+  </div>
+
+</div><!-- /main-content -->
+
+<footer class="site-footer">
+  <div id="network-footer"><!-- Populated by network.js --></div>
+</footer>
+
+<script src="js/network.js"></script>
+<script>
+  // ════════════════════════════════════════════════════════════════
+  // EI_CONFIG — SINGLE SOURCE OF TRUTH FOR ALL ANNUAL RATE VALUES
+  //
+  // TO UPDATE FOR A NEW TAX YEAR:
+  //   1. Change TAX_YEAR to the new year
+  //   2. Update LAST_UPDATED to today's date
+  //   3. Update MIE, EMPLOYEE_RATE, and MAX values
+  //      to the values published by ESDC for that year
+  //   4. No other changes required
+  // ════════════════════════════════════════════════════════════════
+  const EI_CONFIG = {
+    TAX_YEAR:               2026,
+    LAST_UPDATED:           "March 30, 2026",
+
+    // ── Earnings Ceiling ──────────────────────────────────────────
+    MIE:                    68900,     // Maximum Insurable Earnings 2026
+
+    // ── Employee Rate ─────────────────────────────────────────────
+    EMPLOYEE_RATE:          0.0163,    // 1.63% employee premium rate
+
+    // ── Employer Multiplier ───────────────────────────────────────
+    EMPLOYER_MULTIPLIER:    1.4,       // Employer pays 1.4× employee premium
+
+    // ── Derived (do not change) ───────────────────────────────────
+    get EMPLOYER_RATE() { return parseFloat((this.EMPLOYEE_RATE * this.EMPLOYER_MULTIPLIER).toFixed(4)); },
+
+    // ── Official 2026 Published Maximums ─────────────────────────
+    MAX_EMPLOYEE_CONTRIBUTION:  1123.07,   // 68900 × 1.63%
+    get MAX_EMPLOYER_CONTRIBUTION() { return parseFloat((this.MAX_EMPLOYEE_CONTRIBUTION * this.EMPLOYER_MULTIPLIER).toFixed(2)); },
+    get MAX_TOTAL_CONTRIBUTION()   { return parseFloat((this.MAX_EMPLOYEE_CONTRIBUTION + this.MAX_EMPLOYEE_CONTRIBUTION * this.EMPLOYER_MULTIPLIER).toFixed(2)); },
+  };
+  // ════════════════════════════════════════════════════════════════
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const C = EI_CONFIG;
+    const f   = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const pct = r => (r * 100).toFixed(2) + '%';
+
+    // Trust strip
+    const trustYear = document.getElementById('trust-tax-year');
+    const trustDate = document.getElementById('trust-last-updated');
+    if (trustYear) trustYear.textContent = `Using ${C.TAX_YEAR} EI rates`;
+    if (trustDate) trustDate.textContent = `Last updated: ${C.LAST_UPDATED}`;
+
+    // Hero year
+    const heroYear = document.getElementById('hero-year');
+    if (heroYear) heroYear.textContent = C.TAX_YEAR;
+
+    // What it does intro
+    const wtdIntro = document.getElementById('what-it-does-intro');
+    if (wtdIntro) wtdIntro.textContent = `This tool estimates Employment Insurance (EI) contributions based on your gross annual insurable earnings. It applies the ${C.TAX_YEAR} EI contribution rules established by Employment and Social Development Canada (ESDC), including the Maximum Insurable Earnings ceiling of ${f(C.MIE)} and the employee premium rate of ${pct(C.EMPLOYEE_RATE)}.`;
+
+    // Formula box
+    const formulaBox = document.getElementById('formula-box');
+    if (formulaBox) {
+      formulaBox.innerHTML = `
+        <div class="formula-line"><span class="f-label">Step 1:</span> <code>Insurable Earnings = min(Annual Income, MIE)</code></div>
+        <div class="formula-line"><span class="f-label">Step 2:</span> <code>Employee EI = Insurable Earnings × ${pct(C.EMPLOYEE_RATE)}</code></div>
+        <div class="formula-line"><span class="f-label">Step 3:</span> <code>Employer EI = Employee EI × ${C.EMPLOYER_MULTIPLIER}</code></div>
+        <div class="formula-line"><span class="f-label">Step 4:</span> <code>Total EI = Employee EI + Employer EI</code></div>
+        <div class="formula-line"><span class="f-label">${C.TAX_YEAR} MIE:</span> <code>${f(C.MIE)}</code></div>
+        <div class="formula-line"><span class="f-label">Employee Rate:</span> <code>${pct(C.EMPLOYEE_RATE)}</code></div>
+        <div class="formula-line"><span class="f-label">Employer Multiplier:</span> <code>${C.EMPLOYER_MULTIPLIER}× employee premium</code></div>
+        <div class="formula-line"><span class="f-label">Max Employee Contribution:</span> <code>${f(C.MAX_EMPLOYEE_CONTRIBUTION)}</code></div>
+        <div class="formula-line"><span class="f-label">Max Employer Contribution:</span> <code>${f(C.MAX_EMPLOYER_CONTRIBUTION)}</code></div>
+      `;
+    }
+    const formulaNote = document.getElementById('formula-note');
+    if (formulaNote) formulaNote.textContent = `EI contributions are capped once insurable earnings reach the MIE of ${f(C.MIE)}. After that point, the employee's annual contribution is ${f(C.MAX_EMPLOYEE_CONTRIBUTION)} and the employer's is ${f(C.MAX_EMPLOYER_CONTRIBUTION)}, for a combined total of ${f(C.MAX_TOTAL_CONTRIBUTION)}.`;
+
+    // Methodology
+    const mIntro = document.getElementById('methodology-intro');
+    if (mIntro) mIntro.textContent = `This calculator applies the standard Employment Insurance contribution methodology as published by Employment and Social Development Canada (ESDC) for the ${C.TAX_YEAR} benefit year. The following parameters and assumptions apply:`;
+    const mRates = document.getElementById('methodology-rates');
+    if (mRates) mRates.innerHTML = `
+      <li><strong>Maximum Insurable Earnings (MIE):</strong> ${f(C.MIE)} — the annual income ceiling above which EI premiums do not apply.</li>
+      <li><strong>Employee Premium Rate:</strong> ${pct(C.EMPLOYEE_RATE)} — applied to all insurable earnings up to the MIE.</li>
+      <li><strong>Maximum Annual Employee Contribution:</strong> ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}</li>
+      <li><strong>Employer Contribution Multiplier:</strong> ${C.EMPLOYER_MULTIPLIER}× the employee premium — employers are required to pay 1.4 times the employee amount.</li>
+      <li><strong>Maximum Annual Employer Contribution:</strong> ${f(C.MAX_EMPLOYER_CONTRIBUTION)}</li>
+      <li><strong>Maximum Combined Annual EI:</strong> ${f(C.MAX_TOTAL_CONTRIBUTION)}</li>
+    `;
+
+    // Example calculation — $55,000
+    const EXAMPLE_INCOME = 55000;
+    const exInsurable = Math.min(EXAMPLE_INCOME, C.MIE);
+    const exEmployee  = Math.min(parseFloat((exInsurable * C.EMPLOYEE_RATE).toFixed(2)), C.MAX_EMPLOYEE_CONTRIBUTION);
+    const exEmployer  = parseFloat((exEmployee * C.EMPLOYER_MULTIPLIER).toFixed(2));
+    const exTotal     = parseFloat((exEmployee + exEmployer).toFixed(2));
+
+    const exIntro = document.getElementById('example-calc-intro');
+    if (exIntro) exIntro.textContent = `To illustrate how this calculator works, consider a full-year employee earning ${f(EXAMPLE_INCOME)} annually in ${C.TAX_YEAR}. At this income level, the full salary is below the MIE of ${f(C.MIE)}, so EI is calculated on the full ${f(EXAMPLE_INCOME)}.`;
+
+    const exBox = document.getElementById('example-calc-box');
+    if (exBox) exBox.innerHTML = `
+      <h3>Worked Example: ${f(EXAMPLE_INCOME)} Annual Insurable Earnings (${C.TAX_YEAR})</h3>
+      <div class="example-row"><span class="ex-label">Annual Insurable Earnings</span><span class="ex-val">${f(EXAMPLE_INCOME)}</span></div>
+      <div class="example-row"><span class="ex-label">MIE Ceiling</span><span class="ex-val">${f(C.MIE)}</span></div>
+      <div class="example-row"><span class="ex-label">Earnings Subject to EI</span><span class="ex-val">${f(exInsurable)}</span></div>
+      <div class="example-row"><span class="ex-label">Employee Rate (${pct(C.EMPLOYEE_RATE)})</span><span class="ex-val">× ${pct(C.EMPLOYEE_RATE)}</span></div>
+      <div class="example-row"><span class="ex-label">Employee EI Deduction</span><span class="ex-val">${f(exEmployee)}</span></div>
+      <div class="example-row"><span class="ex-label">Employer Contribution (${C.EMPLOYER_MULTIPLIER}× employee)</span><span class="ex-val">${f(exEmployer)}</span></div>
+      <div class="example-row total"><span class="ex-label">Total EI (Employee + Employer)</span><span class="ex-val">${f(exTotal)}</span></div>
+    `;
+    const exOutro = document.getElementById('example-calc-outro');
+    if (exOutro) exOutro.textContent = `In this example, ${f(exEmployee)} is deducted from the employee's paycheque over the year, while the employer contributes an additional ${f(exEmployer)}. Combined, ${f(exTotal)} flows into the EI program for this employee. Because income is below the MIE, the full salary is subject to the premium rate.`;
+
+    // Scenarios table
+    const scenIntro = document.getElementById('scenarios-intro');
+    if (scenIntro) scenIntro.textContent = `The following table illustrates estimated EI contributions at a range of annual income levels in ${C.TAX_YEAR}. Once income reaches or exceeds the MIE of ${f(C.MIE)}, contributions are capped at their annual maximums.`;
+
+    const SCENARIO_INCOMES = [20000, 35000, 50000, C.MIE * 0.75, C.MIE, C.MIE + 10000, C.MIE + 30000].map(n => Math.round(n));
+    const scenWrap = document.getElementById('scenarios-table-wrap');
+    if (scenWrap) {
+      const rows = SCENARIO_INCOMES.map(inc => {
+        const insurable = Math.min(inc, C.MIE);
+        const empEI     = Math.min(parseFloat((insurable * C.EMPLOYEE_RATE).toFixed(2)), C.MAX_EMPLOYEE_CONTRIBUTION);
+        const erEI      = parseFloat((empEI * C.EMPLOYER_MULTIPLIER).toFixed(2));
+        const totalEI   = parseFloat((empEI + erEI).toFixed(2));
+        const atCap     = inc >= C.MIE;
+        const incLabel  = atCap
+          ? `<strong>${f(inc)}</strong> <small>(at/above MIE cap)</small>`
+          : `<strong>${f(inc)}</strong>`;
+        return `<tr><td>${incLabel}</td><td>${f(empEI)}</td><td>${f(erEI)}</td><td>${f(totalEI)}</td></tr>`;
+      }).join('');
+      scenWrap.innerHTML = `
+        <table class="scenarios-table">
+          <thead><tr>
+            <th>Annual Income</th>
+            <th>Employee EI</th>
+            <th>Employer EI</th>
+            <th>Combined EI</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+    const scenOutro = document.getElementById('scenarios-outro');
+    if (scenOutro) scenOutro.textContent = `EI contributions are capped once annual insurable earnings reach the MIE of ${f(C.MIE)}. Employees earning above this threshold pay the same maximum of ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Employers pay ${f(C.MAX_EMPLOYER_CONTRIBUTION)} at or above the cap. Income above the MIE is not subject to any additional EI premiums.`;
+
+    // Understanding paragraphs
+    const uEmployer = document.getElementById('understanding-employer');
+    if (uEmployer) uEmployer.textContent = `Your employer is legally required to contribute ${C.EMPLOYER_MULTIPLIER} times your EI premium for each pay period. This additional cost is borne entirely by the employer — it does not reduce your wages. At the maximum insurable earnings level, your employer contributes ${f(C.MAX_EMPLOYER_CONTRIBUTION)} per year on your behalf, on top of the ${f(C.MAX_EMPLOYEE_CONTRIBUTION)} deducted from your paycheque. This employer contribution is a significant component of the overall EI program funding.`;
+    const uMIE = document.getElementById('understanding-mie');
+    if (uMIE) uMIE.textContent = `The MIE is the annual earnings ceiling set by ESDC. In ${C.TAX_YEAR}, it is ${f(C.MIE)}. All employment income up to this amount is subject to EI premiums at the ${pct(C.EMPLOYEE_RATE)} rate. Income above ${f(C.MIE)} is not insurable — no EI is deducted on earnings beyond this threshold. The MIE is adjusted annually by the federal government based on wage growth in Canada.`;
+    const uMax = document.getElementById('understanding-max');
+    if (uMax) uMax.textContent = `Once your cumulative EI deductions for the calendar year reach the annual maximum of ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}, your employer stops deducting EI for the rest of the year. This typically happens mid-year for employees earning at or above the MIE of ${f(C.MIE)}. At that point, your net paycheque will increase slightly — equivalent to what was previously being deducted for EI each period. Deductions reset at the beginning of each new calendar year.`;
+
+    // Common scenario paragraphs
+    const sUnder = document.getElementById('scenario-under-mie');
+    if (sUnder) sUnder.textContent = `A salaried employee earning less than the MIE of ${f(C.MIE)} per year will have EI deducted on their full salary at the ${pct(C.EMPLOYEE_RATE)} rate throughout the year. Their deductions will not reach the annual maximum. For example, an employee earning ${f(50000)} pays ${f(Math.round(50000 * C.EMPLOYEE_RATE * 100)/100)} in EI for the year — spread across all pay periods.`;
+    const sAtMIE = document.getElementById('scenario-at-mie');
+    if (sAtMIE) sAtMIE.textContent = `An employee earning ${f(C.MIE)} or more per year will reach the annual EI maximum of ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Because EI is deducted per pay period based on that period's earnings, a higher-income employee will hit the cap earlier in the year. Once the maximum is reached, no further EI is deducted. For a bi-weekly employee earning well above the MIE, this cap may be hit by mid-year.`;
+    const sHigh = document.getElementById('scenario-high-income');
+    if (sHigh) sHigh.textContent = `An employee earning well above the MIE — say ${f(100000)} — pays exactly the same EI as one earning ${f(C.MIE)}: ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Income above the MIE is simply not insurable. The cap is absolute: no additional EI applies regardless of how high earnings go. Higher-income employees hit this cap earlier in the calendar year and enjoy EI-free paycheques for the remainder of the year.`;
+
+    // FAQ dynamic
+    const faqMIE = document.getElementById('faq-mie');
+    if (faqMIE) faqMIE.textContent = `The Maximum Insurable Earnings is the annual income ceiling above which EI premiums are not deducted. In ${C.TAX_YEAR}, the MIE is ${f(C.MIE)}. Once your insurable earnings for the year reach this amount, your employer stops deducting EI premiums for the remainder of the calendar year. The MIE is set annually by ESDC.`;
+    const faqErRate = document.getElementById('faq-employer-rate');
+    if (faqErRate) faqErRate.textContent = `Employers are required by law to contribute ${C.EMPLOYER_MULTIPLIER} times the employee EI premium for each employee. At the maximum, the employer pays ${f(C.MAX_EMPLOYER_CONTRIBUTION)} per year per employee — compared to the employee's ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. This employer contribution does not come from your wages; it is an additional cost the employer bears.`;
+    const faqAcc = document.getElementById('faq-accuracy');
+    if (faqAcc) faqAcc.textContent = `This calculator applies the officially published ${C.TAX_YEAR} EI rates (MIE: ${f(C.MIE)}, employee rate: ${pct(C.EMPLOYEE_RATE)}, last updated ${C.LAST_UPDATED}). For most full-year employees with standard insurable earnings, results will closely match actual deductions. Differences may arise from Quebec residency, per-period rounding, or non-standard insurable income types. For official figures, consult canada.ca.`;
+  });
+
+  // ── EI Calculation Logic ──
+  function calculateEI() {
+    const income = parseFloat(document.getElementById('income').value);
+    if (isNaN(income) || income < 0) {
+      alert('Please enter a valid annual income amount.');
+      return;
+    }
+
+    const insurable   = Math.min(income, EI_CONFIG.MIE);
+    const empEI       = Math.min(parseFloat((insurable * EI_CONFIG.EMPLOYEE_RATE).toFixed(2)), EI_CONFIG.MAX_EMPLOYEE_CONTRIBUTION);
+    const erEI        = parseFloat((empEI * EI_CONFIG.EMPLOYER_MULTIPLIER).toFixed(2));
+    const totalEI     = parseFloat((empEI + erEI).toFixed(2));
+    const atCap       = income >= EI_CONFIG.MIE;
+
+    const f   = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const pct = r => (r * 100).toFixed(2) + '%';
+
+    // Results grid
+    const grid = document.getElementById('resultsGrid');
+    grid.innerHTML = `
+      <div class="result-item highlight">
+        <div class="r-label">Your EI Deduction</div>
+        <div class="r-value">${f(empEI)}</div>
+      </div>
+      <div class="result-item">
+        <div class="r-label">Employer Contribution</div>
+        <div class="r-value">${f(erEI)}</div>
+      </div>
+      <div class="result-item">
+        <div class="r-label">Combined EI Total</div>
+        <div class="r-value">${f(totalEI)}</div>
+      </div>
+      ${atCap ? `<div class="result-item">
+        <div class="r-label">Status</div>
+        <div class="r-value" style="font-size:1rem;">At Annual Cap</div>
+      </div>` : ''}
+    `;
+
+    // Breakdown
+    const breakdown = document.getElementById('resultsBreakdown');
+    breakdown.innerHTML = `
+      <h4>Contribution Breakdown — ${EI_CONFIG.TAX_YEAR} EI Rates</h4>
+      <div class="breakdown-row">
+        <span class="br-label">Annual Income Entered</span>
+        <span class="br-val">${f(income)}</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="br-label">${EI_CONFIG.TAX_YEAR} Maximum Insurable Earnings</span>
+        <span class="br-val">${f(EI_CONFIG.MIE)}</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="br-label">Insurable Earnings (lesser of above)</span>
+        <span class="br-val">${f(insurable)}</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="br-label">Employee Rate Applied</span>
+        <span class="br-val">${pct(EI_CONFIG.EMPLOYEE_RATE)}</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="br-label">Employee EI Deduction</span>
+        <span class="br-val">${f(empEI)}</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="br-label">Employer Multiplier</span>
+        <span class="br-val">${EI_CONFIG.EMPLOYER_MULTIPLIER}×</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="br-label">Employer EI Contribution</span>
+        <span class="br-val">${f(erEI)}</span>
+      </div>
+      <div class="breakdown-row" style="font-weight:600;">
+        <span class="br-label">Total EI (Employee + Employer)</span>
+        <span class="br-val">${f(totalEI)}</span>
+      </div>
+      ${atCap ? `<div class="breakdown-row"><span class="br-label">Note</span><span class="br-val" style="color:var(--teal-dark);">Annual cap reached</span></div>` : ''}
+    `;
+
+    // Update results note
+    const note = document.getElementById('resultsNote');
+    if (note) note.innerHTML = `⚠️ <strong>Estimate Only:</strong> This calculator uses ${EI_CONFIG.TAX_YEAR} EI rates (last updated ${EI_CONFIG.LAST_UPDATED}). Results are for informational purposes only and do not constitute official ESDC calculations. Actual deductions may vary based on your specific employment situation and province.`;
+
+    document.getElementById('resultsSection').classList.add('visible');
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // FAQ toggle
+  function toggleFaq(btn) {
+    btn.parentElement.classList.toggle('open');
+  }
+
+  // Enter key
+  document.getElementById('income').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') calculateEI();
+  });
+</script>
+</body>
+</html>

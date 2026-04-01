@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ | EI Calculator</title>
+  <meta name="description" content="Frequently asked questions about Employment Insurance (EI) contributions — rates, Maximum Insurable Earnings, employer contributions, Quebec, and more." />
+  <link rel="canonical" href="https://eicalc.ca/faq.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍁</text></svg>" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EI Calculator",
+    "url": "https://eicalc.ca",
+    "description": "Free Employment Insurance (EI) contribution estimator for Canadian employees.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "creator": { "@type": "Organization", "name": "EI Calculator", "url": "https://eicalc.ca" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is the EI employee premium rate for 2026?","acceptedAnswer":{"@type":"Answer","text":"The employee EI premium rate for 2026 is 1.63% of insurable earnings, up to the Maximum Insurable Earnings of $68,900. The maximum annual employee contribution is $1,123.07."}},
+      {"@type":"Question","name":"What is the Maximum Insurable Earnings for 2026?","acceptedAnswer":{"@type":"Answer","text":"The Maximum Insurable Earnings (MIE) for 2026 is $68,900. EI premiums apply only on income up to this threshold. Income above $68,900 is not subject to EI deductions."}},
+      {"@type":"Question","name":"How much does the employer contribute to EI?","acceptedAnswer":{"@type":"Answer","text":"Employers contribute 1.4 times the employee EI premium. At the maximum, this is $1,572.30 per year per employee. This cost is borne by the employer and does not reduce the employee's wages."}},
+      {"@type":"Question","name":"Do Quebec employees pay the same EI rate?","acceptedAnswer":{"@type":"Answer","text":"No. Quebec employees pay a reduced EI premium rate because they contribute to the Quebec Parental Insurance Plan (QPIP), which funds benefits that overlap with federal EI. The standard rate used on this calculator does not apply to Quebec employees."}}
+    ]
+  }
+  </script>
+  <style>
+    :root{--teal:#00667a;--teal-dark:#004f5e;--teal-light:#e0f4f7;--navy:#0d2137;--navy-mid:#163652;--mist:#edf4f6;--mist-dark:#d4e6eb;--white:#ffffff;--off-white:#f7fafc;--text:#1a2b38;--text-mid:#2e4455;--text-light:#5c7a8a;--border:#cddee6;--radius:10px;--radius-lg:16px;--shadow-sm:0 1px 4px rgba(13,33,55,0.08);--shadow-md:0 4px 16px rgba(13,33,55,0.12);--font-head:'Georgia','Times New Roman',serif;--font-body:'Segoe UI',system-ui,-apple-system,sans-serif;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font-body);font-size:16px;line-height:1.65;color:var(--text);background:var(--off-white);}
+    .site-header{background:var(--navy);border-bottom:3px solid var(--teal);position:sticky;top:0;z-index:100;box-shadow:0 4px 16px rgba(13,33,55,0.12);}
+    .header-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;}
+    .site-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-maple{font-size:22px;}.logo-text{font-family:var(--font-head);font-size:1.2rem;color:var(--white);font-weight:700;}.logo-text span{color:#4dd4e8;}
+    .site-nav{display:flex;gap:6px;}.site-nav a{color:rgba(255,255,255,0.78);text-decoration:none;font-size:0.85rem;padding:6px 12px;border-radius:6px;transition:all 0.2s;}.site-nav a:hover{background:rgba(255,255,255,0.1);color:#fff;}
+    .page-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:48px 24px;text-align:center;}
+    .page-hero h1{font-family:var(--font-head);color:var(--white);font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px;}
+    .page-hero p{color:rgba(255,255,255,0.7);max-width:580px;margin:0 auto;}
+    .page-content{max-width:800px;margin:40px auto;padding:0 24px 60px;}
+    .faq-category{margin-bottom:36px;}
+    .faq-category-title{font-family:var(--font-head);font-size:1.2rem;color:var(--navy);margin-bottom:16px;padding:12px 18px;background:var(--mist);border-left:4px solid var(--teal);border-radius:0 var(--radius) var(--radius) 0;}
+    .faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
+    .faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 20px;font-size:0.95rem;font-weight:600;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-body);gap:12px;}
+    .faq-q:hover{background:var(--mist);}
+    .faq-arrow{font-size:0.75rem;transition:transform 0.25s;color:var(--teal);flex-shrink:0;}
+    .faq-item.open .faq-arrow{transform:rotate(180deg);}
+    .faq-a{display:none;padding:4px 20px 18px;font-size:0.9rem;color:var(--text-mid);line-height:1.7;}
+    .faq-a p{margin-bottom:10px;}.faq-a p:last-child{margin-bottom:0;}
+    .faq-item.open .faq-a{display:block;}
+    .cta-box{background:var(--navy);border-radius:var(--radius-lg);padding:28px 32px;text-align:center;margin-top:40px;}
+    .cta-box h3{font-family:var(--font-head);color:var(--white);margin-bottom:12px;font-size:1.2rem;}
+    .cta-box p{color:rgba(255,255,255,0.72);font-size:0.95rem;margin-bottom:18px;}
+    .cta-btn{display:inline-block;background:var(--teal);color:var(--white);text-decoration:none;padding:13px 28px;border-radius:var(--radius);font-weight:700;font-size:0.95rem;transition:background 0.2s;}
+    .cta-btn:hover{background:var(--teal-dark);}
+    .site-footer{background:var(--navy);border-top:3px solid var(--teal);color:rgba(255,255,255,0.7);margin-top:60px;}
+    #network-footer{max-width:1100px;margin:0 auto;padding:0 24px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding:48px 0 36px;}
+    .footer-col h4{color:var(--white);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;}
+    .footer-col p{font-size:0.85rem;line-height:1.6;margin-bottom:10px;}
+    .footer-col a{display:block;color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.85rem;padding:3px 0;transition:color 0.2s;}
+    .footer-col a:hover{color:var(--white);}
+    .footer-email a{display:inline;color:#7ee8f5;}
+    .footer-hub-desc{display:block;font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:4px;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding:18px 0;font-size:0.8rem;color:rgba(255,255,255,0.4);text-align:center;}
+    .footer-bottom p{margin:3px 0;}
+    .related-card{display:flex;flex-direction:column;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;transition:border-color 0.2s;}.related-card:hover{border-color:var(--teal);}
+    .related-card-name{font-weight:700;color:var(--navy);font-size:0.95rem;}.related-card-desc{font-size:0.85rem;color:var(--text-mid);}.related-card-link{font-size:0.82rem;font-weight:600;color:var(--teal);}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}.site-nav{display:none;}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7744853829365165" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo"><span class="logo-maple">🍁</span><span class="logo-text">EI<span>Calc</span>.ca</span></a>
+    <nav class="site-nav"><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <h1>FAQ</h1>
+  <p>Common questions about Employment Insurance contributions in Canada.</p>
+</section>
+
+<div class="page-content">
+
+  <div class="faq-category">
+    <div class="faq-category-title">EI Basics</div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is Employment Insurance (EI)? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>Employment Insurance is a federal program administered by Employment and Social Development Canada (ESDC) that provides temporary income support to eligible Canadians. EI covers situations such as job loss through no fault of your own, illness, pregnancy, parental leave, and caring for a critically ill family member. Both employees and employers contribute mandatory premiums to fund the program.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Why do I have to pay EI premiums? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>EI premiums are mandatory for all employees with insurable employment under the Employment Insurance Act. The premiums fund a shared pool that provides income replacement benefits when eligible workers face qualifying events. Contributions are required regardless of whether you ever file a claim — EI functions as collective insurance rather than an individual savings account.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Who is required to pay EI premiums? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>Most Canadian employees earning insurable income are required to pay EI premiums. This includes full-time, part-time, temporary, and casual workers. Self-employed individuals are generally exempt unless they have voluntarily opted in. Certain employment situations — such as family members working in a family business — may or may not be insurable depending on the specific relationship and circumstances under the Employment Insurance Act.</p></div>
+    </div>
+  </div>
+
+  <div class="faq-category">
+    <div class="faq-category-title">Rates and Calculations</div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is the EI employee premium rate for 2026? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>The employee EI premium rate for 2026 is 1.63% of insurable earnings, up to the Maximum Insurable Earnings (MIE) of $68,900. The maximum annual employee contribution is $1,123.07. Once you reach this maximum during the year, EI deductions stop for the remainder of that calendar year.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is the Maximum Insurable Earnings (MIE)? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>The Maximum Insurable Earnings is the annual income ceiling set by ESDC above which EI premiums do not apply. In 2026, the MIE is $68,900. Your EI premium is calculated on the lesser of your actual insurable earnings and the MIE. Income above $68,900 is not subject to EI deductions. The MIE is adjusted annually based on wage growth in Canada.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How is my EI premium calculated? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>The formula is straightforward: <strong>EI Premium = min(Annual Insurable Earnings, MIE) × 1.63%</strong>. For example, if your annual insurable earnings are $50,000, your EI premium is $50,000 × 1.63% = $815.00. If your earnings are $80,000, the premium is calculated on $68,900 (the MIE cap), giving $68,900 × 1.63% = $1,123.07 — the annual maximum.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How much does the employer contribute? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>Employers contribute 1.4 times the employee EI premium. At the maximum insurable earnings, this means the employer pays $1,123.07 × 1.4 = $1,572.30 per year per employee. This amount does not come from your wages — it is an additional cost the employer bears on top of your salary. The employer's higher contribution reflects the benefit the EI program provides to businesses, allowing them to temporarily lay off workers with confidence they can rehire them later.</p></div>
+    </div>
+  </div>
+
+  <div class="faq-category">
+    <div class="faq-category-title">Annual Cap and Paystubs</div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">When do EI deductions stop during the year? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>EI deductions stop once your cumulative EI premiums for the year reach the annual maximum of $1,123.07. For employees earning significantly above the MIE ($68,900), this cap may be reached mid-year. Once hit, your net pay will increase slightly each period for the remainder of the calendar year — you'll notice the EI line on your paystub shows $0. Deductions reset at the beginning of each new January.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Why does my EI deduction look different on some paycheques? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>EI is deducted each pay period based on that period's insurable earnings. If your pay varies — due to overtime, bonuses, commission, or variable hours — the EI deduction will vary accordingly. Additionally, once you reach the annual maximum mid-year, your EI deduction will drop to zero for the remaining pay periods of that year.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What if I work for multiple employers in one year? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>Each employer independently deducts EI from your paycheque without knowledge of what other employers have deducted. If you work for multiple employers and your combined insurable earnings exceed the MIE, you may over-contribute during the year. Over-contributed EI premiums are refunded through your annual T1 income tax return — the CRA calculates this automatically based on your reported T4 slips.</p></div>
+    </div>
+  </div>
+
+  <div class="faq-category">
+    <div class="faq-category-title">Special Situations</div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do Quebec employees pay EI the same way? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>No. Quebec employees pay a reduced EI premium rate because they separately contribute to the Quebec Parental Insurance Plan (QPIP), which provides maternity, paternity, and parental benefits. Since QPIP covers benefits that federal EI would otherwise provide, the federal EI rate for Quebec employees is lower than the standard rate. This calculator uses the standard non-Quebec rate. Quebec residents should use the Quebec-specific rate available from ESDC or Revenu Québec.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can self-employed Canadians pay EI? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>Self-employed individuals are not required to pay EI premiums by default and are not eligible for regular EI benefits. However, self-employed Canadians can voluntarily opt into the EI program to access special benefits: maternity, parental, sickness, and compassionate care benefits. If you opt in, you pay only the employee premium (not the employer portion) and must maintain your participation for at least one full year before making a claim.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What income counts as insurable earnings? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>Insurable earnings generally include wages, salaries, commissions, tips (in most cases), and most other employment income paid under a contract of service. Income that is typically not insurable includes self-employment income (unless opted in), investment income, pension income, rental income, and certain director's fees. The specific rules around insurable earnings are defined under the Employment Insurance Act and related regulations.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is this an official Government of Canada tool? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a"><p>No. EICalc.ca is an independent estimation tool and is not affiliated with the Government of Canada, Employment and Social Development Canada (ESDC), or Service Canada. This tool is provided for informational and planning purposes only. For official EI information and rates, visit canada.ca or contact Service Canada directly.</p></div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>Ready to estimate your EI contributions?</h3>
+    <p>Use the EI Calculator to get an instant estimate based on your annual earnings.</p>
+    <a href="index.html" class="cta-btn">Go to EI Calculator →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div id="network-footer"></div>
+</footer>
+<script src="js/network.js"></script>
+<script>
+  function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
+</script>
+</body>
+</html>
