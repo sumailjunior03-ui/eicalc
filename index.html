@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EI Calculator | eicalc.ca</title>
-  <meta name="description" content="Calculate your Employment Insurance (EI) contributions for 2026. Enter your annual insurable earnings to instantly estimate your EI deductions as a Canadian employee." />
+  <title>EI Calculator | EICalc.ca</title>
+  <meta name="description" content="Employment Insurance contribution reference for Canadian employees. Covers insurable earnings, the MIE ceiling, employer multiplier, and annual maximums based on current ESDC rates." />
   <link rel="canonical" href="https://eicalc.ca/index.html" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍁</text></svg>" />
 
@@ -14,7 +14,7 @@
     "@type": "WebApplication",
     "name": "EI Calculator",
     "url": "https://eicalc.ca",
-    "description": "Free Employment Insurance (EI) contribution estimator for Canadian employees. Calculate your EI deductions based on current ESDC rates and maximum insurable earnings.",
+    "description": "Employment Insurance (EI) contribution calculator for Canadian employees. Covers EI deductions, employer contributions, and the MIE ceiling based on current ESDC rates.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
@@ -601,7 +601,7 @@
   <div class="hero-inner">
     <div class="hero-badge">🍁 Employment Insurance — Canada</div>
     <h1>EI Calculator</h1>
-    <p>Estimate your Employment Insurance (EI) deductions for <span id="hero-year">2026</span> based on your annual insurable earnings. Instant, browser-only calculation.</p>
+    <p>If you're trying to understand how much Employment Insurance (EI) is deducted from your pay, this calculator gives you a clear estimate based on current contribution rules.</p>
   </div>
 </section>
 
@@ -614,14 +614,14 @@
     <div class="calc-card">
       <div class="calc-header">
         <span class="calc-icon">🧮</span>
-        <h2>Calculator Tool</h2>
+        <h2>EI Contribution Calculator</h2>
       </div>
       <div class="trust-strip">
         <span class="ts-item">📅 <strong id="trust-tax-year">Loading rates…</strong></span>
         <span class="ts-sep">|</span>
         <span class="ts-item">🕐 <strong id="trust-last-updated">Loading…</strong></span>
         <span class="ts-sep">|</span>
-        <span class="ts-item">Estimates only — not official ESDC output</span>
+        <span class="ts-item">Estimates only</span>
       </div>
       <div class="calc-body">
 
@@ -668,7 +668,7 @@
       <div class="section-number">2</div>
       <h2>When This Calculator Is Useful</h2>
     </div>
-    <p>The EI Calculator is designed for Canadian employees who want to understand how much of their income goes toward Employment Insurance — one of the mandatory deductions on every Canadian paycheque. It is relevant in several common situations:</p>
+    <p>EI is deducted from every Canadian employee's paycheque throughout the year until the annual maximum is reached. These are the scenarios where knowing the exact amount matters:</p>
     <div class="info-grid">
       <div class="info-card">
         <div class="ic-icon">💼</div>
@@ -677,8 +677,8 @@
       </div>
       <div class="info-card">
         <div class="ic-icon">📊</div>
-        <div class="ic-title">Annual Tax Budgeting</div>
-        <div class="ic-desc">When estimating your total payroll deductions, knowing your EI contributions helps complete the picture alongside CPP and income tax.</div>
+        <div class="ic-title">Reconciling Payroll Deductions Before Filing</div>
+        <div class="ic-desc">Before filing your T1, compare Box 18 of your T4 (EI insurable earnings) against this estimate. A gap beyond a few cents of rounding may reflect multiple employers, a mid-year start, or a payroll error worth confirming.</div>
       </div>
       <div class="info-card">
         <div class="ic-icon">🔍</div>
@@ -697,8 +697,8 @@
       </div>
       <div class="info-card">
         <div class="ic-icon">🤔</div>
-        <div class="ic-title">Understanding Benefit Eligibility</div>
-        <div class="ic-desc">EI contributions are required to qualify for EI benefits. Understanding your contribution level helps frame eligibility discussions.</div>
+        <div class="ic-title">EI Contributions and Hours-Based Eligibility</div>
+        <div class="ic-desc">Contributing to EI is a prerequisite for benefits, but eligibility depends on insurable hours worked — not the dollar amount contributed. The minimum hours threshold varies by region and local unemployment rate. This calculator shows your premium; hours tracking is separate.</div>
       </div>
     </div>
   </div>
@@ -711,17 +711,17 @@
       <div class="section-number">3</div>
       <h2>What This Calculator Does</h2>
     </div>
-    <p id="what-it-does-intro">This tool estimates Employment Insurance (EI) contributions based on your gross annual insurable earnings. It applies the current EI contribution rules established by Employment and Social Development Canada (ESDC), including the annual Maximum Insurable Earnings (MIE) ceiling and the applicable employee contribution rate.</p>
-    <p>The calculator produces three primary outputs:</p>
+    <p id="what-it-does-intro">The calculator applies the current EI contribution rate to your insurable earnings, up to the yearly maximum contribution limit set by the government.</p>
+    <p>The calculation returns three values:</p>
     <ul>
       <li><strong>Employee EI Contribution:</strong> The EI amount deducted from your paycheque by your employer and remitted to the government on your behalf. This is the amount that directly affects your take-home pay.</li>
       <li><strong>Employer EI Contribution:</strong> The amount your employer contributes on top of your deduction — equal to 1.4 times your employee contribution. This is an additional cost borne by the employer and does not come from your wages.</li>
       <li><strong>Total EI Contribution:</strong> The combined amount flowing into the EI program annually from both you and your employer.</li>
     </ul>
-    <p>All calculations run entirely in your browser. No income information is transmitted to any server. This tool does not store, share, or process your data in any way.</p>
+    <p>Everything runs in your browser. No data leaves your device.</p>
     <div class="disclaimer-banner">
       <span class="disc-icon">ℹ️</span>
-      <span>This calculator uses publicly available EI rate information published by Employment and Social Development Canada (ESDC). It is an estimation tool. For official EI deduction amounts, consult your employer's payroll department or the Government of Canada at canada.ca.</span>
+      <span>Rates sourced from publicly available ESDC publications.</span>
     </div>
   </div>
 
@@ -746,7 +746,7 @@
       <div class="section-number">5</div>
       <h2>Formula</h2>
     </div>
-    <p>The Employment Insurance contribution formula is straightforward. ESDC defines insurable earnings as gross employment income up to the Maximum Insurable Earnings (MIE) ceiling. The employee contribution rate is applied to the lesser of your actual earnings or the MIE.</p>
+    <p>ESDC defines insurable earnings as gross employment income up to the Maximum Insurable Earnings (MIE) ceiling. The employee rate is applied to the lesser of your actual earnings or the MIE.</p>
     <div class="formula-box" id="formula-box"><!-- Populated by JS --></div>
     <p id="formula-note"><!-- Populated by JS --></p>
   </div>
@@ -764,16 +764,15 @@
     <ul id="methodology-rates"><!-- Populated by JS --></ul>
     <h3>Scope and Limitations</h3>
     <ul>
-      <li>This calculator assumes all income entered is insurable earnings as defined by ESDC. Not all income is insurable — see the Understanding section for details.</li>
+      <li>Not all income is insurable. This calculator treats all entered income as insurable — see the Understanding section for what qualifies.</li>
       <li>The calculator models full-year employment. If you started or ended employment mid-year, your actual EI deductions will reflect only the portion of the year worked.</li>
       <li>Self-employed Canadians who have opted into the EI program for special benefits pay different rates and rules — this calculator models the standard employee deduction only.</li>
       <li>Employees in Quebec pay into the Quebec Parental Insurance Plan (QPIP) and have a reduced EI rate. This calculator uses the standard non-Quebec employee rate.</li>
-      <li>The employer contribution is displayed for informational purposes. It does not affect your personal take-home pay.</li>
     </ul>
     <h3>Rounding</h3>
     <p>All monetary outputs are rounded to the nearest cent. Per-period payroll rounding may cause minor differences between this annual estimate and the sum of your actual per-paycheque deductions.</p>
     <h3>Quebec Note</h3>
-    <p>Quebec employees pay a reduced EI employee rate because they contribute separately to QPIP, which provides maternity and parental benefits. If you are a Quebec resident, your actual EI deductions will be lower than this estimate. Consult your employer or canada.ca for the current Quebec EI rate.</p>
+    <p>Quebec employees pay a reduced EI employee rate because they contribute separately to QPIP, which provides maternity and parental benefits. If you are a Quebec resident, your actual EI deductions will be lower than this estimate.</p>
   </div>
 
   <!-- ══════════════════════════════════════════════
@@ -826,11 +825,9 @@
     <h3>Part-Year or Seasonal Employee</h3>
     <p>An employee who works for only part of the year will pay EI on their actual insurable earnings for that period. If, for example, you earned $30,000 over six months, your EI contribution would be calculated on $30,000 — not a full-year annualized figure. Your employer deducts EI each pay period regardless of how long you've been employed. If you leave employment before reaching the annual maximum, your total contributions for the year will simply reflect what was deducted during your working period.</p>
     <h3>Hourly Employee with Variable Income</h3>
-    <p>For hourly workers, EI is deducted from each paycheque based on that period's insurable earnings. The rate is consistent regardless of whether you work full-time or part-time hours. The annual maximum still applies — once your cumulative EI deductions reach the annual maximum, deductions stop for the rest of the year. Hourly workers who have periods of reduced hours will simply pay less EI in those periods.</p>
+    <p>For hourly workers, EI is deducted from each paycheque based on that period's insurable earnings. The rate is consistent regardless of whether you work full-time or part-time hours. Periods of reduced hours simply mean less EI deducted that period.</p>
     <h3>Higher-Income Employee Hitting the Cap</h3>
     <p id="scenario-high-income"><!-- Populated by JS --></p>
-    <h3>Quebec Employee</h3>
-    <p>Quebec employees pay a reduced EI premium rate compared to employees in other provinces and territories. This is because Quebec funds its own parental insurance program (QPIP) separately, which provides benefits that overlap with the federal EI program's maternity and parental provisions. Quebec employees pay EI premiums at the Quebec rate, which is lower than the standard rate, reflecting this provincial contribution.</p>
   </div>
 
   <!-- ══════════════════════════════════════════════
@@ -843,42 +840,23 @@
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is Employment Insurance (EI)? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">Employment Insurance is a federal program administered by Employment and Social Development Canada (ESDC) that provides temporary income support to Canadians who lose their jobs, become ill, are pregnant or caring for a newborn, or need to care for a seriously ill family member. Both employees and employers contribute to the EI program through payroll deductions. Contributions build entitlement to benefits when qualifying life events occur.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">What counts as insurable earnings? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Insurable earnings include wages, salaries, commissions, tips, and most other employment income paid under a contract of service. Investment income, rental income, pension payments, and self-employment income (unless you've opted in) are not insurable and are not subject to EI deductions.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Who is required to pay EI premiums? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a" id="faq-who">Most employees in Canada who earn employment income are required to pay EI premiums. This includes full-time, part-time, temporary, and casual workers. Self-employed individuals are generally exempt unless they have voluntarily opted into the EI program. Certain family members working for a corporation controlled by a related person may be exempt depending on whether the employment is insurable.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Does this include EI contribution limits? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a" id="faq-mie">The calculator applies the 2026 Maximum Insurable Earnings (MIE) ceiling. Earnings above this threshold are not subject to EI, and your annual contribution is capped at the published maximum. The MIE is set annually by ESDC.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is the Maximum Insurable Earnings (MIE)? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a" id="faq-mie">The Maximum Insurable Earnings is the annual income ceiling above which EI premiums are not deducted. Once your insurable earnings for the year reach the MIE, your employer stops deducting EI premiums for the remainder of the calendar year. The MIE is set annually by ESDC and typically increases each year in line with wage growth. In 2026, the MIE is $68,900.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Why is my EI deduction different from what the calculator shows? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a" id="faq-accuracy">A few things can cause a difference: Quebec residency (lower rate applies), per-period payroll rounding, having multiple employers, or earning income types that aren't fully insurable. This calculator assumes full-year standard employment and uses the non-Quebec rate.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Why does my employer pay more EI than I do? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a" id="faq-employer-rate">Employers are required by law to contribute 1.4 times the employee EI premium for each employee. This employer contribution does not come from your wages — it is an additional cost the employer bears on top of your salary. The rationale is that employers benefit from the EI system because it allows them to temporarily lay off employees during slow periods with the assurance that those workers can receive income support, making it easier to rehire them when business picks up.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do I get EI premiums back if I never make a claim? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">In most cases, no. EI premiums are not refunded if you never use the program — they function similarly to insurance premiums. However, low-income workers who pay EI premiums may receive a refund of part or all of their EI premiums through the Working Income Tax Benefit (now the Canada Workers Benefit) and related provisions on their annual T1 tax return. Check your specific situation with a tax professional.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is EI deducted in Quebec the same way? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">No. Quebec employees pay a reduced EI premium rate because Quebec operates its own Quebec Parental Insurance Plan (QPIP), which provides maternity, paternity, and parental benefits separately from the federal EI program. The federal EI program reduces its premium rate for Quebec employees to reflect that QPIP covers benefits that EI would otherwise cover. This calculator uses the standard non-Quebec rate. Quebec employees should use the QPIP-adjusted rate for accurate estimates.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How accurate is this calculator? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a" id="faq-accuracy">This calculator applies the officially published 2026 EI rates and MIE. For most full-year employees whose earnings are insurable employment income, the result will closely match your actual annual EI deductions. Differences may arise due to per-period payroll rounding, Quebec residency, having multiple employers in one year, or income types that are not fully insurable. For official figures, consult your employer's payroll department or canada.ca.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Can I opt out of EI premiums? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">In general, no. If you are an employee with insurable employment, EI premium deductions are mandatory. There is no mechanism for employees to opt out. Self-employed individuals are exempt by default but can opt in voluntarily to access special EI benefits such as maternity, parental, sickness, and compassionate care benefits. Once self-employed individuals opt in, they must maintain their participation for a minimum period.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is this an official Government of Canada tool? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">No. EICalc.ca is an independent estimation tool and is not affiliated with the Government of Canada, Employment and Social Development Canada (ESDC), or Service Canada. This tool is provided for informational and planning purposes only. For official EI information, visit canada.ca or contact Service Canada directly.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Can EI rates change yearly? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. ESDC sets the EI premium rate and the Maximum Insurable Earnings each year. Both figures typically change annually and are published in the fall for the following calendar year. This calculator reflects the rates currently in effect for 2026.</div>
       </div>
     </div>
+    <p style="margin-top: 16px; font-size: 0.88rem; color: var(--text-light);">More detailed questions about EI rules, self-employment, overpayments, and provincial differences are covered on the <a href="faq.html" style="color: var(--teal);">full FAQ page</a>.</p>
   </div>
 
   <!-- ══════════════════════════════════════════════
@@ -953,7 +931,7 @@
 
     // What it does intro
     const wtdIntro = document.getElementById('what-it-does-intro');
-    if (wtdIntro) wtdIntro.textContent = `This tool estimates Employment Insurance (EI) contributions based on your gross annual insurable earnings. It applies the ${C.TAX_YEAR} EI contribution rules established by Employment and Social Development Canada (ESDC), including the Maximum Insurable Earnings ceiling of ${f(C.MIE)} and the employee premium rate of ${pct(C.EMPLOYEE_RATE)}.`;
+    // what-it-does-intro is set in static HTML
 
     // Formula box
     const formulaBox = document.getElementById('formula-box');
@@ -975,7 +953,7 @@
 
     // Methodology
     const mIntro = document.getElementById('methodology-intro');
-    if (mIntro) mIntro.textContent = `This calculator applies the standard Employment Insurance contribution methodology as published by Employment and Social Development Canada (ESDC) for the ${C.TAX_YEAR} benefit year. The following parameters and assumptions apply:`;
+    if (mIntro) mIntro.textContent = `The following parameters are sourced from ESDC's published ${C.TAX_YEAR} EI rates and applied as-is. No adjustments are made for province, employment type, or pay frequency.`;
     const mRates = document.getElementById('methodology-rates');
     if (mRates) mRates.innerHTML = `
       <li><strong>Maximum Insurable Earnings (MIE):</strong> ${f(C.MIE)} — the annual income ceiling above which EI premiums do not apply.</li>
@@ -994,7 +972,7 @@
     const exTotal     = parseFloat((exEmployee + exEmployer).toFixed(2));
 
     const exIntro = document.getElementById('example-calc-intro');
-    if (exIntro) exIntro.textContent = `To illustrate how this calculator works, consider a full-year employee earning ${f(EXAMPLE_INCOME)} annually in ${C.TAX_YEAR}. At this income level, the full salary is below the MIE of ${f(C.MIE)}, so EI is calculated on the full ${f(EXAMPLE_INCOME)}.`;
+    if (exIntro) exIntro.textContent = `Take a full-year employee earning ${f(EXAMPLE_INCOME)} in ${C.TAX_YEAR}. That salary is below the MIE of ${f(C.MIE)}, so EI applies to the full amount.`;
 
     const exBox = document.getElementById('example-calc-box');
     if (exBox) exBox.innerHTML = `
@@ -1041,11 +1019,11 @@
       `;
     }
     const scenOutro = document.getElementById('scenarios-outro');
-    if (scenOutro) scenOutro.textContent = `EI contributions are capped once annual insurable earnings reach the MIE of ${f(C.MIE)}. Employees earning above this threshold pay the same maximum of ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Employers pay ${f(C.MAX_EMPLOYER_CONTRIBUTION)} at or above the cap. Income above the MIE is not subject to any additional EI premiums.`;
+    if (scenOutro) scenOutro.textContent = `Income above the MIE of ${f(C.MIE)} is not subject to further EI. Every employee at or above the cap pays the same ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}.`;
 
     // Understanding paragraphs
     const uEmployer = document.getElementById('understanding-employer');
-    if (uEmployer) uEmployer.textContent = `Your employer is legally required to contribute ${C.EMPLOYER_MULTIPLIER} times your EI premium for each pay period. This additional cost is borne entirely by the employer — it does not reduce your wages. At the maximum insurable earnings level, your employer contributes ${f(C.MAX_EMPLOYER_CONTRIBUTION)} per year on your behalf, on top of the ${f(C.MAX_EMPLOYEE_CONTRIBUTION)} deducted from your paycheque. This employer contribution is a significant component of the overall EI program funding.`;
+    if (uEmployer) uEmployer.textContent = `Your employer is legally required to contribute ${C.EMPLOYER_MULTIPLIER} times your EI premium for each pay period. This cost is borne entirely by the employer — it does not reduce your wages. At the maximum, that's ${f(C.MAX_EMPLOYER_CONTRIBUTION)} per year on top of the ${f(C.MAX_EMPLOYEE_CONTRIBUTION)} deducted from your paycheque.`;
     const uMIE = document.getElementById('understanding-mie');
     if (uMIE) uMIE.textContent = `The MIE is the annual earnings ceiling set by ESDC. In ${C.TAX_YEAR}, it is ${f(C.MIE)}. All employment income up to this amount is subject to EI premiums at the ${pct(C.EMPLOYEE_RATE)} rate. Income above ${f(C.MIE)} is not insurable — no EI is deducted on earnings beyond this threshold. The MIE is adjusted annually by the federal government based on wage growth in Canada.`;
     const uMax = document.getElementById('understanding-max');
@@ -1059,13 +1037,7 @@
     const sHigh = document.getElementById('scenario-high-income');
     if (sHigh) sHigh.textContent = `An employee earning well above the MIE — say ${f(100000)} — pays exactly the same EI as one earning ${f(C.MIE)}: ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Income above the MIE is simply not insurable. The cap is absolute: no additional EI applies regardless of how high earnings go. Higher-income employees hit this cap earlier in the calendar year and enjoy EI-free paycheques for the remainder of the year.`;
 
-    // FAQ dynamic
-    const faqMIE = document.getElementById('faq-mie');
-    if (faqMIE) faqMIE.textContent = `The Maximum Insurable Earnings is the annual income ceiling above which EI premiums are not deducted. In ${C.TAX_YEAR}, the MIE is ${f(C.MIE)}. Once your insurable earnings for the year reach this amount, your employer stops deducting EI premiums for the remainder of the calendar year. The MIE is set annually by ESDC.`;
-    const faqErRate = document.getElementById('faq-employer-rate');
-    if (faqErRate) faqErRate.textContent = `Employers are required by law to contribute ${C.EMPLOYER_MULTIPLIER} times the employee EI premium for each employee. At the maximum, the employer pays ${f(C.MAX_EMPLOYER_CONTRIBUTION)} per year per employee — compared to the employee's ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. This employer contribution does not come from your wages; it is an additional cost the employer bears.`;
-    const faqAcc = document.getElementById('faq-accuracy');
-    if (faqAcc) faqAcc.textContent = `This calculator applies the officially published ${C.TAX_YEAR} EI rates (MIE: ${f(C.MIE)}, employee rate: ${pct(C.EMPLOYEE_RATE)}, last updated ${C.LAST_UPDATED}). For most full-year employees with standard insurable earnings, results will closely match actual deductions. Differences may arise from Quebec residency, per-period rounding, or non-standard insurable income types. For official figures, consult canada.ca.`;
+    // FAQ dynamic — faq-mie and faq-accuracy are now static in HTML
   });
 
   // ── EI Calculation Logic ──
