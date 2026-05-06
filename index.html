@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EI Calculator | EICalc.ca</title>
-  <meta name="description" content="Employment Insurance contribution reference for Canadian employees. Covers insurable earnings, the MIE ceiling, employer multiplier, and annual maximums based on current ESDC rates." />
-  <link rel="canonical" href="https://eicalc.ca/index.html" />
+  <title>EI Eligibility Calculator 2026 — How Many Hours Do You Need? | EICalc.ca</title>
+  <meta name="description" content="Find out how many insurable hours you need for EI and estimate your weekly benefits. Uses 2026 ESDC rates and current Statistics Canada regional unemployment data for all 62 EI regions." />
+  <link rel="canonical" href="https://eicalc.ca/" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍁</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "EI Calculator",
+    "name": "EI Eligibility and Benefit Estimator",
     "url": "https://eicalc.ca",
-    "description": "Employment Insurance (EI) contribution calculator for Canadian employees. Covers EI deductions, employer contributions, and the MIE ceiling based on current ESDC rates.",
+    "description": "Enter your city or region, insurable hours worked, and average weekly earnings to find out if you qualify for EI and how much you could receive. Uses 2026 ESDC rates and Statistics Canada regional unemployment data.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
@@ -25,1116 +26,718 @@
     },
     "creator": {
       "@type": "Organization",
-      "name": "EI Calculator",
+      "name": "EICalc.ca",
       "url": "https://eicalc.ca"
     }
   }
   </script>
 
-  <style>
-    :root {
-      --teal:       #00667a;
-      --teal-dark:  #004f5e;
-      --teal-light: #e0f4f7;
-      --navy:       #0d2137;
-      --navy-mid:   #163652;
-      --slate:      #2e4a60;
-      --mist:       #edf4f6;
-      --mist-dark:  #d4e6eb;
-      --white:      #ffffff;
-      --off-white:  #f7fafc;
-      --text:       #1a2b38;
-      --text-mid:   #2e4455;
-      --text-light: #5c7a8a;
-      --border:     #cddee6;
-      --success:    #0e6e3f;
-      --gold:       #c88a00;
-      --gold-light: #fff8e0;
-      --radius:     10px;
-      --radius-lg:  16px;
-      --shadow-sm:  0 1px 4px rgba(13,33,55,0.08);
-      --shadow-md:  0 4px 16px rgba(13,33,55,0.12);
-      --shadow-lg:  0 8px 32px rgba(13,33,55,0.16);
-      --font-head:  'Georgia', 'Times New Roman', serif;
-      --font-body:  'Segoe UI', system-ui, -apple-system, sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.65;
-      color: var(--text);
-      background: var(--off-white);
-    }
-
-    /* ── Site Header ── */
-    .site-header {
-      background: var(--navy);
-      border-bottom: 3px solid var(--teal);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-md);
-    }
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-    }
-    .site-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .logo-maple { font-size: 22px; line-height: 1; }
-    .logo-text {
-      font-family: var(--font-head);
-      font-size: 1.2rem;
-      color: var(--white);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .logo-text span { color: #4dd4e8; }
-    .site-nav { display: flex; gap: 6px; }
-    .site-nav a {
-      color: rgba(255,255,255,0.78);
-      text-decoration: none;
-      font-size: 0.85rem;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-    .site-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-
-    /* ── Hero ── */
-    .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--slate) 100%);
-      padding: 56px 24px 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .hero-inner { position: relative; max-width: 700px; margin: 0 auto; }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0,102,122,0.3);
-      border: 1px solid rgba(77,212,232,0.4);
-      color: #a0eaf5;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-    .hero h1 {
-      font-family: var(--font-head);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      color: var(--white);
-      line-height: 1.25;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-    .hero p {
-      color: rgba(255,255,255,0.72);
-      font-size: 1.05rem;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    /* ── Main Layout ── */
-    .main-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px 60px;
-    }
-
-    /* ── Calculator Card ── */
-    .calc-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      margin: -28px auto 40px;
-      max-width: 860px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      position: relative;
-      z-index: 10;
-    }
-    .calc-header {
-      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-dark) 100%);
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .calc-header h2 {
-      font-family: var(--font-head);
-      color: var(--white);
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-    .calc-header .calc-icon { font-size: 1.3rem; }
-
-    .trust-strip {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 9px 18px;
-      background: var(--mist);
-      border-bottom: 1px solid var(--mist-dark);
-      font-size: 0.8rem;
-      color: var(--text-light);
-      flex-wrap: wrap;
-    }
-    .trust-strip .ts-item { display: flex; align-items: center; gap: 5px; }
-    .trust-strip .ts-item strong { color: var(--navy); font-weight: 600; }
-    .trust-strip .ts-sep { color: var(--border); }
-
-    .calc-body { padding: 32px 36px; }
-
-    /* Input */
-    .input-group { margin-bottom: 24px; }
-    .input-group label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
-    .input-group label .label-sub {
-      font-weight: 400;
-      color: var(--text-light);
-      font-size: 0.82rem;
-    }
-    .input-wrap { position: relative; display: flex; align-items: center; }
-    .input-prefix {
-      position: absolute;
-      left: 14px;
-      font-size: 0.95rem;
-      color: var(--text-light);
-      font-weight: 600;
-      pointer-events: none;
-    }
-    .input-wrap input[type="number"] {
-      width: 100%;
-      padding: 13px 14px 13px 30px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 1.05rem;
-      font-family: var(--font-body);
-      color: var(--text);
-      background: var(--off-white);
-      transition: border-color 0.2s, box-shadow 0.2s;
-      -moz-appearance: textfield;
-    }
-    .input-wrap input[type="number"]::-webkit-inner-spin-button,
-    .input-wrap input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    .input-wrap input[type="number"]:focus {
-      outline: none;
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(0,102,122,0.12);
-      background: var(--white);
-    }
-
-    /* Calculate Button */
-    .btn-calculate {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-      color: var(--white);
-      border: none;
-      border-radius: var(--radius);
-      font-size: 1.05rem;
-      font-weight: 700;
-      font-family: var(--font-body);
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 12px rgba(0,102,122,0.3);
-      margin-top: 8px;
-    }
-    .btn-calculate:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,102,122,0.4); }
-    .btn-calculate:active { transform: translateY(0); }
-
-    /* Results */
-    .results-section { display: none; margin-top: 28px; }
-    .results-section.visible { display: block; }
-    .results-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
-    .results-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      margin-bottom: 16px;
-    }
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-    .result-item {
-      background: var(--mist);
-      border-radius: var(--radius);
-      padding: 16px 18px;
-      border-left: 4px solid var(--navy);
-    }
-    .result-item.highlight { background: var(--teal-light); border-left-color: var(--teal); }
-    .result-item .r-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-    }
-    .result-item .r-value {
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--navy);
-      font-family: var(--font-head);
-      line-height: 1;
-    }
-    .result-item.highlight .r-value { color: var(--teal-dark); }
-
-    .results-breakdown {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      margin-bottom: 20px;
-    }
-    .results-breakdown h4 {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 12px;
-    }
-    .breakdown-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
-    }
-    .breakdown-row:last-child { border-bottom: none; }
-    .breakdown-row .br-label { color: var(--text-mid); }
-    .breakdown-row .br-val { font-weight: 700; color: var(--text); font-family: monospace; font-size: 0.95rem; }
-
-    .results-note {
-      background: var(--gold-light);
-      border: 1px solid #e8cc6a;
-      border-radius: var(--radius);
-      padding: 12px 16px;
-      font-size: 0.83rem;
-      color: #6b4c00;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-    /* ── Content Sections ── */
-    .section { max-width: 860px; margin: 0 auto 48px; }
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 2px solid var(--mist-dark);
-    }
-    .section-number {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: var(--white);
-      font-size: 0.82rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .section h2 { font-family: var(--font-head); font-size: 1.4rem; color: var(--navy); line-height: 1.3; }
-    .section h3 { font-family: var(--font-head); font-size: 1.1rem; color: var(--navy); margin: 20px 0 10px; }
-    .section p { color: var(--text-mid); margin-bottom: 14px; font-size: 0.97rem; }
-    .section ul, .section ol { color: var(--text-mid); margin-bottom: 14px; padding-left: 24px; }
-    .section li { margin-bottom: 6px; font-size: 0.97rem; }
-
-    /* Info Cards */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin: 20px 0;
-    }
-    .info-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-    }
-    .info-card .ic-icon { font-size: 1.5rem; margin-bottom: 10px; }
-    .info-card .ic-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .info-card .ic-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
-
-    /* Example Box */
-    .example-box {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-      border-radius: var(--radius-lg);
-      padding: 28px 32px;
-      color: rgba(255,255,255,0.9);
-      margin: 20px 0;
-    }
-    .example-box h3 { color: var(--white); font-family: var(--font-head); margin-bottom: 16px; }
-    .example-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      font-size: 0.92rem;
-    }
-    .example-row:last-child { border-bottom: none; }
-    .example-row .ex-label { color: rgba(255,255,255,0.72); }
-    .example-row .ex-val { font-weight: 700; color: var(--white); font-family: monospace; }
-    .example-row.total .ex-label { color: rgba(255,255,255,0.9); font-weight: 600; }
-    .example-row.total .ex-val { color: #7ee8f5; font-size: 1.05rem; }
-
-    /* Formula Box */
-    .formula-box {
-      background: var(--white);
-      border: 2px solid var(--navy);
-      border-radius: var(--radius);
-      padding: 22px 24px;
-      margin: 20px 0;
-      font-family: 'Georgia', serif;
-    }
-    .formula-line {
-      padding: 6px 0;
-      border-bottom: 1px dashed var(--mist-dark);
-      font-size: 0.93rem;
-      color: var(--text);
-    }
-    .formula-line:last-child { border-bottom: none; }
-    .formula-line .f-label { color: var(--text-light); font-size: 0.82rem; margin-right: 8px; }
-    .formula-line code {
-      background: var(--mist);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      color: var(--navy);
-    }
-
-    /* Scenarios Table */
-    .scenarios-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      margin: 20px 0;
-      font-size: 0.9rem;
-    }
-    .scenarios-table thead { background: var(--navy); color: var(--white); }
-    .scenarios-table th { padding: 12px 16px; text-align: left; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; }
-    .scenarios-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text-mid); }
-    .scenarios-table tbody tr:last-child td { border-bottom: none; }
-    .scenarios-table tbody tr:hover { background: var(--mist); }
-    .scenarios-table td strong { color: var(--text); }
-
-    /* FAQ */
-    .faq-list { margin: 20px 0; }
-    .faq-item {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-    .faq-q {
-      width: 100%;
-      background: none;
-      border: none;
-      text-align: left;
-      padding: 16px 20px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--navy);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-body);
-      gap: 12px;
-    }
-    .faq-q:hover { background: var(--mist); }
-    .faq-arrow { font-size: 0.75rem; transition: transform 0.25s; color: var(--teal); flex-shrink: 0; }
-    .faq-item.open .faq-arrow { transform: rotate(180deg); }
-    .faq-a {
-      display: none;
-      padding: 4px 20px 18px;
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      line-height: 1.6;
-    }
-    .faq-item.open .faq-a { display: block; }
-
-    /* Related calculators */
-    #network-related-calculators {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-    .related-card {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-decoration: none;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-      box-shadow: var(--shadow-sm);
-    }
-    .related-card:hover { border-color: var(--teal); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .related-card-name { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
-    .related-card-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
-    .related-card-link { font-size: 0.82rem; font-weight: 600; color: var(--teal); margin-top: 4px; }
-
-    /* Disclaimer Banner */
-    .disclaimer-banner {
-      max-width: 860px;
-      margin: 0 auto 32px;
-      background: var(--mist);
-      border: 1px solid var(--mist-dark);
-      border-radius: var(--radius);
-      padding: 14px 20px;
-      font-size: 0.84rem;
-      color: var(--text-light);
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .disclaimer-banner .disc-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-
-    /* ── Footer ── */
-    .site-footer {
-      background: var(--navy);
-      border-top: 3px solid var(--teal);
-      color: rgba(255,255,255,0.7);
-      margin-top: 60px;
-    }
-    #network-footer { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      padding: 48px 0 36px;
-    }
-    .footer-col h4 { color: var(--white); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
-    .footer-col p { font-size: 0.85rem; line-height: 1.6; margin-bottom: 10px; }
-    .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem; padding: 3px 0; transition: color 0.2s; }
-    .footer-col a:hover { color: var(--white); }
-    .footer-email a { display: inline; color: #7ee8f5; }
-    .footer-hub-desc { display: block; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 18px 0; font-size: 0.8rem; color: rgba(255,255,255,0.4); text-align: center; }
-    .footer-bottom p { margin: 3px 0; }
-
-    @media (max-width: 768px) {
-      .calc-body { padding: 20px 18px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-      .site-nav { display: none; }
-      .results-grid { grid-template-columns: 1fr 1fr; }
-      .scenarios-table { font-size: 0.82rem; }
-      .scenarios-table th, .scenarios-table td { padding: 9px 10px; }
-    }
-    @media (max-width: 480px) {
-      .hero { padding: 36px 16px 40px; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .results-grid { grid-template-columns: 1fr; }
-    }
-  </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7744853829365165" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="site-logo">
-      <span class="logo-maple">🍁</span>
-      <span class="logo-text">EI<span>Calc</span>.ca</span>
-    </a>
-    <nav class="site-nav">
-      <a href="faq.html">FAQ</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
+  <!-- ── Site Header ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-maple">🍁</span>
+        <span class="logo-text">EI<span>Calc</span>.ca</span>
+      </a>
+      <nav class="site-nav">
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">🍁 Employment Insurance — Canada</div>
-    <h1>EI Calculator</h1>
-    <p>If you're trying to understand how much Employment Insurance (EI) is deducted from your pay, this calculator gives you a clear estimate based on current contribution rules.</p>
-  </div>
-</section>
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">🇨🇦 2026 ESDC Rates · Updated April 2026</div>
+      <h1>How Many Hours Do You Need for EI?</h1>
+      <p>Enter your city and hours worked — we'll show your regional threshold, eligibility status, and estimated benefits using current Statistics Canada unemployment data.</p>
+    </div>
+  </section>
 
-<div class="main-content">
+  <!-- ── Main Content ── -->
+  <main class="main-content">
 
-  <!-- ══════════════════════════════════════════════
-       SECTION 1 — CALCULATOR TOOL
-  ══════════════════════════════════════════════ -->
-  <div id="calculator" class="section" style="margin-top: 0;">
-    <div class="calc-card">
+    <!-- ── Calculator Card ── -->
+    <div class="calc-card" id="calculator">
       <div class="calc-header">
-        <span class="calc-icon">🧮</span>
-        <h2>EI Contribution Calculator</h2>
+        <span class="calc-icon">📋</span>
+        <h2>EI Eligibility and Benefit Estimator</h2>
       </div>
+
       <div class="trust-strip">
-        <span class="ts-item">📅 <strong id="trust-tax-year">Loading rates…</strong></span>
-        <span class="ts-sep">|</span>
-        <span class="ts-item">🕐 <strong id="trust-last-updated">Loading…</strong></span>
-        <span class="ts-sep">|</span>
-        <span class="ts-item">Estimates only</span>
+        <span class="ts-item"><span>✓</span> <strong>2026 ESDC rates</strong></span>
+        <span class="ts-sep">·</span>
+        <span class="ts-item"><span>✓</span> <strong>62 EI regions</strong></span>
+        <span class="ts-sep">·</span>
+        <span class="ts-item"><span>✓</span> <strong>StatCan April 2026 data</strong></span>
+        <span class="ts-sep">·</span>
+        <span class="ts-item"><span>✓</span> Estimates only — not affiliated with Service Canada</span>
       </div>
+
       <div class="calc-body">
 
+        <!-- Step 1: Location -->
         <div class="input-group">
-          <label for="income">
-            Annual Insurable Earnings
-            <span class="label-sub"> — Gross employment income eligible for EI (CAD)</span>
+          <label for="location-input">
+            Where do you work?
+            <span class="label-sub"> — Enter your city, neighbourhood, or province</span>
+          </label>
+          <div class="location-wrap">
+            <input
+              type="text"
+              id="location-input"
+              class="location-input"
+              placeholder="e.g. Toronto, Kitchener, Halifax, BC…"
+              autocomplete="off"
+              aria-label="Enter your city or province"
+              aria-autocomplete="list"
+              aria-controls="autocomplete-list"
+            />
+            <div id="autocomplete-list" class="autocomplete-dropdown" role="listbox" aria-label="Region suggestions"></div>
+          </div>
+          <div id="region-confirmed" class="region-confirmed" aria-live="polite"></div>
+        </div>
+
+        <!-- Step 2: Hours Worked -->
+        <div class="input-group">
+          <label for="hours-input">
+            Insurable hours worked
+            <span class="label-sub"> — Total hours in the past 52 weeks (all jobs combined)</span>
           </label>
           <div class="input-wrap">
+            <input
+              type="number"
+              id="hours-input"
+              placeholder="e.g. 700"
+              min="0"
+              max="9999"
+              step="1"
+              aria-label="Hours worked in the past 52 weeks"
+            />
+          </div>
+        </div>
+
+        <!-- Step 3: Average Weekly Earnings -->
+        <div class="input-group">
+          <label for="earnings-input">
+            Average weekly earnings
+            <span class="label-sub"> — Your typical gross weekly pay from insurable employment</span>
+          </label>
+          <div class="input-wrap input-wrap-dollar">
             <span class="input-prefix">$</span>
-            <input type="number" id="income" placeholder="e.g. 55000" min="0" max="9999999" step="100" />
+            <input
+              type="number"
+              id="earnings-input"
+              placeholder="e.g. 900"
+              min="0"
+              max="99999"
+              step="1"
+              aria-label="Average weekly earnings in dollars"
+            />
           </div>
         </div>
 
-        <button class="btn-calculate" onclick="calculateEI()">Calculate EI Contributions</button>
+        <!-- CTA -->
+        <button class="btn-calculate" id="btn-check" onclick="runCalculator()">
+          Check My Eligibility
+        </button>
 
-        <!-- Results -->
-        <div class="results-section" id="resultsSection">
+        <!-- Results Card -->
+        <div class="results-section" id="results-section" aria-live="polite">
           <div class="results-divider"></div>
-          <div class="results-label">Your Estimated EI Contributions</div>
+          <div class="results-label">Your EI Estimate</div>
 
-          <div class="results-grid" id="resultsGrid">
-            <!-- Populated by JS -->
-          </div>
+          <div class="eligibility-banner" id="eligibility-banner"></div>
 
-          <div class="results-breakdown" id="resultsBreakdown">
-            <!-- Populated by JS -->
-          </div>
+          <div class="results-grid" id="results-grid"></div>
 
-          <div class="results-note" id="resultsNote">
-            ⚠️ <strong>Estimate Only:</strong> This calculator uses 2026 EI rates. Results are for informational purposes only and do not constitute official ESDC calculations. Actual deductions may vary based on your employment situation and province.
-          </div>
+          <div class="results-breakdown" id="results-breakdown"></div>
+
+          <div class="results-note" id="results-note"></div>
         </div>
 
+      </div><!-- /calc-body -->
+    </div><!-- /calc-card -->
+
+    <!-- Ad unit — after calculator -->
+    <div class="ad-unit ad-inactive" aria-hidden="true">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-7744853829365165"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- ── Authority Sections ── -->
+
+    <!-- Section 1: What This Calculator Does -->
+    <section class="authority-section" id="what-this-does">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2>What This EI Calculator Does</h2>
       </div>
-    </div>
-  </div>
+      <p>This calculator tells you two things most Canadians need to know the moment they lose a job: whether you have enough insurable hours to qualify for EI, and roughly how much you might receive. You enter your city or region, the number of insurable hours you worked in the past 52 weeks, and your average weekly earnings — the calculator then looks up your regional unemployment rate from Statistics Canada's Labour Force Survey data (updated monthly), determines your qualifying threshold, and estimates your weekly benefit and total duration using the 2026 ESDC rate of 55%, the $68,900 maximum insurable earnings ceiling, and the $729 weekly maximum.</p>
+      <p>This tool does not file a claim, access Service Canada systems, or produce an official eligibility determination. Results are estimates only, based on publicly available ESDC data. EICalc.ca is not affiliated with Service Canada, ESDC, or the Government of Canada.</p>
+    </section>
 
-  <!-- ══════════════════════════════════════════════
-       SECTION 2 — WHEN THIS CALCULATOR IS USEFUL
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">2</div>
-      <h2>When This Calculator Is Useful</h2>
+    <!-- Ad unit — between sections -->
+    <div class="ad-unit ad-inactive" aria-hidden="true">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-7744853829365165"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
     </div>
-    <p>EI is deducted from every Canadian employee's paycheque throughout the year until the annual maximum is reached. These are the scenarios where knowing the exact amount matters:</p>
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="ic-icon">💼</div>
-        <div class="ic-title">Starting a New Job</div>
-        <div class="ic-desc">Understand your take-home pay by seeing exactly how much EI will be withheld from your paycheque based on your annual salary.</div>
+
+    <!-- Section 2: How EI Eligibility Works -->
+    <section class="authority-section" id="how-eligibility-works">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2>How EI Eligibility Works in Canada</h2>
       </div>
-      <div class="info-card">
-        <div class="ic-icon">📊</div>
-        <div class="ic-title">Reconciling Payroll Deductions Before Filing</div>
-        <div class="ic-desc">Before filing your T1, compare Box 18 of your T4 (EI insurable earnings) against this estimate. A gap beyond a few cents of rounding may reflect multiple employers, a mid-year start, or a payroll error worth confirming.</div>
+      <p>The core question EI eligibility comes down to is simple: did you work enough insurable hours, and did you lose your job through no fault of your own? Everything else branches from those two points.</p>
+
+      <h3>Insurable hours and the qualifying period</h3>
+      <p>To qualify for regular EI benefits, you need between 420 and 700 insurable hours worked within the 52-week period immediately before your claim start date — or since the start of your last EI claim, whichever is shorter. The exact number of hours you need depends entirely on the unemployment rate in your EI economic region at the time you file. In Toronto, where the current unemployment rate is 8.1%, you need 595 hours. In Quebec City, where unemployment sits at just 2.8%, you need 700 hours. In Northern Manitoba at 27.8%, the threshold drops to 420 hours.</p>
+
+      <h3>What counts as insurable employment</h3>
+      <p>Insurable employment includes most jobs where you receive a T4 — standard employment under a contract of service. Wages, tips, bonuses, and commissions all count toward insurable earnings, up to the $68,900 annual maximum. What generally does not count: self-employment income (unless you've opted into the EI program for self-employed people), casual work for a related employer in certain circumstances, or work performed outside Canada.</p>
+
+      <h3>Reason for separation</h3>
+      <p>You must have lost your job through no fault of your own. This typically means a layoff, elimination of your position, seasonal work ending, or a shortage of work. If you quit, you're generally disqualified unless you can demonstrate "just cause" — for example, leaving due to harassment, unsafe working conditions, or to follow a relocating spouse. Being fired for misconduct also disqualifies you; fired due to a shortage of work or restructuring does not.</p>
+
+      <h3>Part-time and irregular workers</h3>
+      <p>EI counts actual hours worked, not weeks. A part-time worker who puts in 20 hours per week for 30 weeks has 600 hours — potentially enough to qualify in many regions. The system is built around hours precisely because it needs to accommodate non-standard work arrangements. Every insurable hour from every job in the qualifying period counts toward your total.</p>
+
+      <h3>Seasonal workers</h3>
+      <p>Seasonal industries — fish processing, tourism, construction, agriculture — are a major driver of EI claims in Atlantic Canada and rural Quebec. If your work is seasonal by nature and you've historically relied on EI to bridge the off-season, you may qualify for additional weeks of benefits beyond the regular maximum, depending on your region's unemployment rate and your hours accumulated.</p>
+
+      <h3>The one-week waiting period</h3>
+      <p>Once you stop working, EI doesn't start immediately. There's a mandatory one-week waiting period before benefits begin. You still need to file biweekly reports during this period.</p>
+
+      <h3>New and re-entrant workers</h3>
+      <p>As of July 3, 2016, the old higher-hours rule for new entrants and re-entrants was eliminated. If you're entering the workforce for the first time, or returning after an absence, you use the same regional hour thresholds as everyone else — between 420 and 700 hours depending on where you live.</p>
+
+      <h3>Self-employed workers</h3>
+      <p>Self-employed Canadians can opt into the EI program voluntarily, but must register at least 12 months before making a claim and pay premiums during that period. The program covers special benefits (maternity, parental, sickness, compassionate care) but not regular unemployment benefits. A self-employed person who incorporated and paid themselves a T4 salary may qualify under regular rules depending on their specific employment structure.</p>
+    </section>
+
+    <!-- Section 3: Why Your Region Changes Required Hours -->
+    <section class="authority-section" id="why-region-matters">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2>Why Your Region Changes Required Hours</h2>
       </div>
-      <div class="info-card">
-        <div class="ic-icon">🔍</div>
-        <div class="ic-title">Verifying Paystubs</div>
-        <div class="ic-desc">Cross-check your employer's EI deductions against this estimate to confirm they match the expected rates and annual cap.</div>
-      </div>
-      <div class="info-card">
-        <div class="ic-icon">🎯</div>
-        <div class="ic-title">Comparing Job Offers</div>
-        <div class="ic-desc">When evaluating different salaries or hourly rates, understanding mandatory deductions like EI helps you compare true take-home pay.</div>
-      </div>
-      <div class="info-card">
-        <div class="ic-icon">📅</div>
-        <div class="ic-title">Part-Year Income Estimation</div>
-        <div class="ic-desc">If you started a job mid-year or work seasonally, estimating your EI contributions helps you understand your actual annual net income.</div>
-      </div>
-      <div class="info-card">
-        <div class="ic-icon">🤔</div>
-        <div class="ic-title">EI Contributions and Hours-Based Eligibility</div>
-        <div class="ic-desc">Contributing to EI is a prerequisite for benefits, but eligibility depends on insurable hours worked — not the dollar amount contributed. The minimum hours threshold varies by region and local unemployment rate. This calculator shows your premium; hours tracking is separate.</div>
-      </div>
-    </div>
-  </div>
+      <p>The regional hours system is one of the least-understood parts of EI — and one of the most consequential. The number of hours you need to qualify isn't arbitrary. It's tied directly to the unemployment rate in your EI economic region, which is measured monthly by Statistics Canada using three-month moving averages from the Labour Force Survey (Table 14-10-0354-01).</p>
 
-  <!-- ══════════════════════════════════════════════
-       SECTION 3 — WHAT THIS CALCULATOR DOES
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">3</div>
-      <h2>What This Calculator Does</h2>
-    </div>
-    <p id="what-it-does-intro">The calculator applies the current EI contribution rate to your insurable earnings, up to the yearly maximum contribution limit set by the government.</p>
-    <p>The calculation returns three values:</p>
-    <ul>
-      <li><strong>Employee EI Contribution:</strong> The EI amount deducted from your paycheque by your employer and remitted to the government on your behalf. This is the amount that directly affects your take-home pay.</li>
-      <li><strong>Employer EI Contribution:</strong> The amount your employer contributes on top of your deduction — equal to 1.4 times your employee contribution. This is an additional cost borne by the employer and does not come from your wages.</li>
-      <li><strong>Total EI Contribution:</strong> The combined amount flowing into the EI program annually from both you and your employer.</li>
-    </ul>
-    <p>Everything runs in your browser. No data leaves your device.</p>
-    <div class="disclaimer-banner">
-      <span class="disc-icon">ℹ️</span>
-      <span>Rates sourced from publicly available ESDC publications.</span>
-    </div>
-  </div>
+      <h3>The logic behind the sliding scale</h3>
+      <p>The design principle is economic: in regions where jobs are scarce and unemployment is already high, the EI system requires fewer qualifying hours. This reflects the reality that workers in those areas face genuinely harder labour markets and may have fewer options to accumulate hours. Conversely, in low-unemployment regions where jobs are relatively plentiful, the system requires more hours before benefits kick in, on the theory that workers there had more opportunity to build insurable time.</p>
 
-  <!-- ══════════════════════════════════════════════
-       SECTION 4 — EXAMPLE CALCULATION
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">4</div>
-      <h2>Example Calculation</h2>
-    </div>
-    <p id="example-calc-intro"><!-- Populated by JS --></p>
-    <div class="example-box" id="example-calc-box"><!-- Populated by JS --></div>
-    <p id="example-calc-outro"><!-- Populated by JS --></p>
-  </div>
+      <h3>How the bands work in practice</h3>
+      <p>There are nine unemployment rate bands, each mapped to a required-hours threshold. At 6% and under, you need 700 hours — the highest bar in the system. The threshold drops by 35 hours for each roughly one-percentage-point increase in the regional rate, all the way down to 420 hours when unemployment exceeds 13%.</p>
 
-  <!-- ══════════════════════════════════════════════
-       SECTION 5 — FORMULA
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">5</div>
-      <h2>Formula</h2>
-    </div>
-    <p>ESDC defines insurable earnings as gross employment income up to the Maximum Insurable Earnings (MIE) ceiling. The employee rate is applied to the lesser of your actual earnings or the MIE.</p>
-    <div class="formula-box" id="formula-box"><!-- Populated by JS --></div>
-    <p id="formula-note"><!-- Populated by JS --></p>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       SECTION 6 — CALCULATION METHODOLOGY
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">6</div>
-      <h2>Calculation Methodology</h2>
-    </div>
-    <p id="methodology-intro"><!-- Populated by JS --></p>
-    <h3>Rates and Thresholds Used</h3>
-    <ul id="methodology-rates"><!-- Populated by JS --></ul>
-    <h3>Scope and Limitations</h3>
-    <ul>
-      <li>Not all income is insurable. This calculator treats all entered income as insurable — see the Understanding section for what qualifies.</li>
-      <li>The calculator models full-year employment. If you started or ended employment mid-year, your actual EI deductions will reflect only the portion of the year worked.</li>
-      <li>Self-employed Canadians who have opted into the EI program for special benefits pay different rates and rules — this calculator models the standard employee deduction only.</li>
-      <li>Employees in Quebec pay into the Quebec Parental Insurance Plan (QPIP) and have a reduced EI rate. This calculator uses the standard non-Quebec employee rate.</li>
-    </ul>
-    <h3>Rounding</h3>
-    <p>All monetary outputs are rounded to the nearest cent. Per-period payroll rounding may cause minor differences between this annual estimate and the sum of your actual per-paycheque deductions.</p>
-    <h3>Quebec Note</h3>
-    <p>Quebec employees pay a reduced EI employee rate because they contribute separately to QPIP, which provides maternity and parental benefits. If you are a Quebec resident, your actual EI deductions will be lower than this estimate.</p>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       SECTION 7 — EXAMPLE SCENARIOS
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">7</div>
-      <h2>Example Scenarios</h2>
-    </div>
-    <p id="scenarios-intro"><!-- Populated by JS --></p>
-    <div id="scenarios-table-wrap"><!-- Populated by JS --></div>
-    <p id="scenarios-outro"><!-- Populated by JS --></p>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       SECTION 8 — UNDERSTANDING
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">8</div>
-      <h2>Understanding</h2>
-    </div>
-    <h3>Your Employee Contribution</h3>
-    <p>This is the dollar amount deducted from your gross pay each pay period and remitted to the government by your employer. You will see this as "EI" or "EI Premiums" on your paystub. Deductions continue throughout the year until you reach the annual maximum. Once reached, no further EI is deducted for the remainder of that calendar year.</p>
-    <h3>The Employer Contribution</h3>
-    <p id="understanding-employer"><!-- Populated by JS --></p>
-    <h3>Maximum Insurable Earnings (MIE)</h3>
-    <p id="understanding-mie"><!-- Populated by JS --></p>
-    <h3>What Counts as Insurable Earnings?</h3>
-    <p>Insurable earnings generally include wages, salaries, commissions, tips, and most other employment income paid to employees. Not all income is insurable — for example, income from self-employment (unless you've opted in), investment income, rental income, and certain pension payments are not subject to EI deductions. EI applies to employment income as defined under the Employment Insurance Act.</p>
-    <h3>What Happens When You Reach the Annual Maximum</h3>
-    <p id="understanding-max"><!-- Populated by JS --></p>
-    <h3>EI Contributions and Benefit Eligibility</h3>
-    <p>Making EI contributions does not automatically entitle you to EI benefits. Eligibility for EI benefits depends on additional factors: you must have worked a minimum number of insurable hours in the past year (which varies by region and the unemployment rate in your area), you must be unemployed through no fault of your own, and you must be available and actively looking for work. Contributing to EI is a necessary condition, but not the only one.</p>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       SECTION 9 — COMMON SCENARIOS
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">9</div>
-      <h2>Common Scenarios</h2>
-    </div>
-    <h3>Salaried Employee Under the MIE</h3>
-    <p id="scenario-under-mie"><!-- Populated by JS --></p>
-    <h3>Salaried Employee at or Above the MIE</h3>
-    <p id="scenario-at-mie"><!-- Populated by JS --></p>
-    <h3>Part-Year or Seasonal Employee</h3>
-    <p>An employee who works for only part of the year will pay EI on their actual insurable earnings for that period. If, for example, you earned $30,000 over six months, your EI contribution would be calculated on $30,000 — not a full-year annualized figure. Your employer deducts EI each pay period regardless of how long you've been employed. If you leave employment before reaching the annual maximum, your total contributions for the year will simply reflect what was deducted during your working period.</p>
-    <h3>Hourly Employee with Variable Income</h3>
-    <p>For hourly workers, EI is deducted from each paycheque based on that period's insurable earnings. The rate is consistent regardless of whether you work full-time or part-time hours. Periods of reduced hours simply mean less EI deducted that period.</p>
-    <h3>Higher-Income Employee Hitting the Cap</h3>
-    <p id="scenario-high-income"><!-- Populated by JS --></p>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       SECTION 10 — FAQ
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">10</div>
-      <h2>FAQ</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What counts as insurable earnings? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">Insurable earnings include wages, salaries, commissions, tips, and most other employment income paid under a contract of service. Investment income, rental income, pension payments, and self-employment income (unless you've opted in) are not insurable and are not subject to EI deductions.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Does this include EI contribution limits? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a" id="faq-mie">The calculator applies the 2026 Maximum Insurable Earnings (MIE) ceiling. Earnings above this threshold are not subject to EI, and your annual contribution is capped at the published maximum. The MIE is set annually by ESDC.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Why is my EI deduction different from what the calculator shows? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a" id="faq-accuracy">A few things can cause a difference: Quebec residency (lower rate applies), per-period payroll rounding, having multiple employers, or earning income types that aren't fully insurable. This calculator assumes full-year standard employment and uses the non-Quebec rate.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Can EI rates change yearly? <span class="faq-arrow">▼</span></button>
-        <div class="faq-a">Yes. ESDC sets the EI premium rate and the Maximum Insurable Earnings each year. Both figures typically change annually and are published in the fall for the following calendar year. This calculator reflects the rates currently in effect for 2026.</div>
-      </div>
-    </div>
-    <p style="margin-top: 16px; font-size: 0.88rem; color: var(--text-light);">More detailed questions about EI rules, self-employment, overpayments, and provincial differences are covered on the <a href="faq.html" style="color: var(--teal);">full FAQ page</a>.</p>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       SECTION 11 — RELATED CALCULATORS
-  ══════════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">11</div>
-      <h2>Related Calculators</h2>
-    </div>
-    <p>EI contributions are one piece of your total Canadian payroll deductions. These related tools help you build a complete picture of your take-home pay and employment costs:</p>
-    <div id="network-related-calculators">
-      <!-- Populated by network.js -->
-    </div>
-  </div>
-
-</div><!-- /main-content -->
-
-<footer class="site-footer">
-  <div id="network-footer"><!-- Populated by network.js --></div>
-</footer>
-
-<script src="js/network.js"></script>
-<script src="js/ads.js"></script>
-<script>
-  // ════════════════════════════════════════════════════════════════
-  // EI_CONFIG — SINGLE SOURCE OF TRUTH FOR ALL ANNUAL RATE VALUES
-  //
-  // TO UPDATE FOR A NEW TAX YEAR:
-  //   1. Change TAX_YEAR to the new year
-  //   2. Update LAST_UPDATED to today's date
-  //   3. Update MIE, EMPLOYEE_RATE, and MAX values
-  //      to the values published by ESDC for that year
-  //   4. No other changes required
-  // ════════════════════════════════════════════════════════════════
-  const EI_CONFIG = {
-    TAX_YEAR:               2026,
-    LAST_UPDATED:           "March 30, 2026",
-
-    // ── Earnings Ceiling ──────────────────────────────────────────
-    MIE:                    68900,     // Maximum Insurable Earnings 2026
-
-    // ── Employee Rate ─────────────────────────────────────────────
-    EMPLOYEE_RATE:          0.0163,    // 1.63% employee premium rate
-
-    // ── Employer Multiplier ───────────────────────────────────────
-    EMPLOYER_MULTIPLIER:    1.4,       // Employer pays 1.4× employee premium
-
-    // ── Derived (do not change) ───────────────────────────────────
-    get EMPLOYER_RATE() { return parseFloat((this.EMPLOYEE_RATE * this.EMPLOYER_MULTIPLIER).toFixed(4)); },
-
-    // ── Official 2026 Published Maximums ─────────────────────────
-    MAX_EMPLOYEE_CONTRIBUTION:  1123.07,   // 68900 × 1.63%
-    get MAX_EMPLOYER_CONTRIBUTION() { return parseFloat((this.MAX_EMPLOYEE_CONTRIBUTION * this.EMPLOYER_MULTIPLIER).toFixed(2)); },
-    get MAX_TOTAL_CONTRIBUTION()   { return parseFloat((this.MAX_EMPLOYEE_CONTRIBUTION + this.MAX_EMPLOYEE_CONTRIBUTION * this.EMPLOYER_MULTIPLIER).toFixed(2)); },
-  };
-  // ════════════════════════════════════════════════════════════════
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const C = EI_CONFIG;
-    const f   = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    const pct = r => (r * 100).toFixed(2) + '%';
-
-    // Trust strip
-    const trustYear = document.getElementById('trust-tax-year');
-    const trustDate = document.getElementById('trust-last-updated');
-    if (trustYear) trustYear.textContent = `Using ${C.TAX_YEAR} EI rates`;
-    if (trustDate) trustDate.textContent = `Last updated: ${C.LAST_UPDATED}`;
-
-    // Hero year
-    const heroYear = document.getElementById('hero-year');
-    if (heroYear) heroYear.textContent = C.TAX_YEAR;
-
-    // What it does intro
-    const wtdIntro = document.getElementById('what-it-does-intro');
-    // what-it-does-intro is set in static HTML
-
-    // Formula box
-    const formulaBox = document.getElementById('formula-box');
-    if (formulaBox) {
-      formulaBox.innerHTML = `
-        <div class="formula-line"><span class="f-label">Step 1:</span> <code>Insurable Earnings = min(Annual Income, MIE)</code></div>
-        <div class="formula-line"><span class="f-label">Step 2:</span> <code>Employee EI = Insurable Earnings × ${pct(C.EMPLOYEE_RATE)}</code></div>
-        <div class="formula-line"><span class="f-label">Step 3:</span> <code>Employer EI = Employee EI × ${C.EMPLOYER_MULTIPLIER}</code></div>
-        <div class="formula-line"><span class="f-label">Step 4:</span> <code>Total EI = Employee EI + Employer EI</code></div>
-        <div class="formula-line"><span class="f-label">${C.TAX_YEAR} MIE:</span> <code>${f(C.MIE)}</code></div>
-        <div class="formula-line"><span class="f-label">Employee Rate:</span> <code>${pct(C.EMPLOYEE_RATE)}</code></div>
-        <div class="formula-line"><span class="f-label">Employer Multiplier:</span> <code>${C.EMPLOYER_MULTIPLIER}× employee premium</code></div>
-        <div class="formula-line"><span class="f-label">Max Employee Contribution:</span> <code>${f(C.MAX_EMPLOYEE_CONTRIBUTION)}</code></div>
-        <div class="formula-line"><span class="f-label">Max Employer Contribution:</span> <code>${f(C.MAX_EMPLOYER_CONTRIBUTION)}</code></div>
-      `;
-    }
-    const formulaNote = document.getElementById('formula-note');
-    if (formulaNote) formulaNote.textContent = `EI contributions are capped once insurable earnings reach the MIE of ${f(C.MIE)}. After that point, the employee's annual contribution is ${f(C.MAX_EMPLOYEE_CONTRIBUTION)} and the employer's is ${f(C.MAX_EMPLOYER_CONTRIBUTION)}, for a combined total of ${f(C.MAX_TOTAL_CONTRIBUTION)}.`;
-
-    // Methodology
-    const mIntro = document.getElementById('methodology-intro');
-    if (mIntro) mIntro.textContent = `The following parameters are sourced from ESDC's published ${C.TAX_YEAR} EI rates and applied as-is. No adjustments are made for province, employment type, or pay frequency.`;
-    const mRates = document.getElementById('methodology-rates');
-    if (mRates) mRates.innerHTML = `
-      <li><strong>Maximum Insurable Earnings (MIE):</strong> ${f(C.MIE)} — the annual income ceiling above which EI premiums do not apply.</li>
-      <li><strong>Employee Premium Rate:</strong> ${pct(C.EMPLOYEE_RATE)} — applied to all insurable earnings up to the MIE.</li>
-      <li><strong>Maximum Annual Employee Contribution:</strong> ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}</li>
-      <li><strong>Employer Contribution Multiplier:</strong> ${C.EMPLOYER_MULTIPLIER}× the employee premium — employers are required to pay 1.4 times the employee amount.</li>
-      <li><strong>Maximum Annual Employer Contribution:</strong> ${f(C.MAX_EMPLOYER_CONTRIBUTION)}</li>
-      <li><strong>Maximum Combined Annual EI:</strong> ${f(C.MAX_TOTAL_CONTRIBUTION)}</li>
-    `;
-
-    // Example calculation — $55,000
-    const EXAMPLE_INCOME = 55000;
-    const exInsurable = Math.min(EXAMPLE_INCOME, C.MIE);
-    const exEmployee  = Math.min(parseFloat((exInsurable * C.EMPLOYEE_RATE).toFixed(2)), C.MAX_EMPLOYEE_CONTRIBUTION);
-    const exEmployer  = parseFloat((exEmployee * C.EMPLOYER_MULTIPLIER).toFixed(2));
-    const exTotal     = parseFloat((exEmployee + exEmployer).toFixed(2));
-
-    const exIntro = document.getElementById('example-calc-intro');
-    if (exIntro) exIntro.textContent = `Take a full-year employee earning ${f(EXAMPLE_INCOME)} in ${C.TAX_YEAR}. That salary is below the MIE of ${f(C.MIE)}, so EI applies to the full amount.`;
-
-    const exBox = document.getElementById('example-calc-box');
-    if (exBox) exBox.innerHTML = `
-      <h3>Worked Example: ${f(EXAMPLE_INCOME)} Annual Insurable Earnings (${C.TAX_YEAR})</h3>
-      <div class="example-row"><span class="ex-label">Annual Insurable Earnings</span><span class="ex-val">${f(EXAMPLE_INCOME)}</span></div>
-      <div class="example-row"><span class="ex-label">MIE Ceiling</span><span class="ex-val">${f(C.MIE)}</span></div>
-      <div class="example-row"><span class="ex-label">Earnings Subject to EI</span><span class="ex-val">${f(exInsurable)}</span></div>
-      <div class="example-row"><span class="ex-label">Employee Rate (${pct(C.EMPLOYEE_RATE)})</span><span class="ex-val">× ${pct(C.EMPLOYEE_RATE)}</span></div>
-      <div class="example-row"><span class="ex-label">Employee EI Deduction</span><span class="ex-val">${f(exEmployee)}</span></div>
-      <div class="example-row"><span class="ex-label">Employer Contribution (${C.EMPLOYER_MULTIPLIER}× employee)</span><span class="ex-val">${f(exEmployer)}</span></div>
-      <div class="example-row total"><span class="ex-label">Total EI (Employee + Employer)</span><span class="ex-val">${f(exTotal)}</span></div>
-    `;
-    const exOutro = document.getElementById('example-calc-outro');
-    if (exOutro) exOutro.textContent = `In this example, ${f(exEmployee)} is deducted from the employee's paycheque over the year, while the employer contributes an additional ${f(exEmployer)}. Combined, ${f(exTotal)} flows into the EI program for this employee. Because income is below the MIE, the full salary is subject to the premium rate.`;
-
-    // Scenarios table
-    const scenIntro = document.getElementById('scenarios-intro');
-    if (scenIntro) scenIntro.textContent = `The following table illustrates estimated EI contributions at a range of annual income levels in ${C.TAX_YEAR}. Once income reaches or exceeds the MIE of ${f(C.MIE)}, contributions are capped at their annual maximums.`;
-
-    const SCENARIO_INCOMES = [20000, 35000, 50000, C.MIE * 0.75, C.MIE, C.MIE + 10000, C.MIE + 30000].map(n => Math.round(n));
-    const scenWrap = document.getElementById('scenarios-table-wrap');
-    if (scenWrap) {
-      const rows = SCENARIO_INCOMES.map(inc => {
-        const insurable = Math.min(inc, C.MIE);
-        const empEI     = Math.min(parseFloat((insurable * C.EMPLOYEE_RATE).toFixed(2)), C.MAX_EMPLOYEE_CONTRIBUTION);
-        const erEI      = parseFloat((empEI * C.EMPLOYER_MULTIPLIER).toFixed(2));
-        const totalEI   = parseFloat((empEI + erEI).toFixed(2));
-        const atCap     = inc >= C.MIE;
-        const incLabel  = atCap
-          ? `<strong>${f(inc)}</strong> <small>(at/above MIE cap)</small>`
-          : `<strong>${f(inc)}</strong>`;
-        return `<tr><td>${incLabel}</td><td>${f(empEI)}</td><td>${f(erEI)}</td><td>${f(totalEI)}</td></tr>`;
-      }).join('');
-      scenWrap.innerHTML = `
-        <table class="scenarios-table">
-          <thead><tr>
-            <th>Annual Income</th>
-            <th>Employee EI</th>
-            <th>Employer EI</th>
-            <th>Combined EI</th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
+      <div class="threshold-table-wrap">
+        <table class="threshold-table">
+          <thead>
+            <tr>
+              <th>Regional Unemployment Rate</th>
+              <th>Required Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>6% and under</td><td>700 hours</td></tr>
+            <tr><td>6.1% to 7.0%</td><td>665 hours</td></tr>
+            <tr><td>7.1% to 8.0%</td><td>630 hours</td></tr>
+            <tr><td>8.1% to 9.0%</td><td>595 hours</td></tr>
+            <tr><td>9.1% to 10.0%</td><td>560 hours</td></tr>
+            <tr><td>10.1% to 11.0%</td><td>525 hours</td></tr>
+            <tr><td>11.1% to 12.0%</td><td>490 hours</td></tr>
+            <tr><td>12.1% to 13.0%</td><td>455 hours</td></tr>
+            <tr><td>More than 13%</td><td>420 hours</td></tr>
+          </tbody>
         </table>
-      `;
+      </div>
+
+      <h3>Three real comparisons</h3>
+
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comp-region">Quebec City, QC</div>
+          <div class="comp-rate">2.8% unemployment</div>
+          <div class="comp-hours">700 hours required</div>
+          <p>One of the lowest unemployment rates in Canada. A full-time worker at 40 hours per week needs roughly 17.5 weeks to hit the 700-hour threshold.</p>
+        </div>
+        <div class="comparison-card">
+          <div class="comp-region">Toronto, ON</div>
+          <div class="comp-rate">8.1% unemployment</div>
+          <div class="comp-hours">595 hours required</div>
+          <p>Falls in the 8.1–9.0% band. A full-time worker hits 595 hours in about 14.9 weeks. Kitchener (8.2%) and London (9.0%) share the same threshold.</p>
+        </div>
+        <div class="comparison-card">
+          <div class="comp-region">Northern Manitoba</div>
+          <div class="comp-rate">27.8% unemployment</div>
+          <div class="comp-hours">420 hours required</div>
+          <p>The highest unemployment rate of any EI region in Canada. Workers in Thompson and Churchill need only 420 hours — approximately 10.5 full-time weeks.</p>
+        </div>
+      </div>
+
+      <h3>The regional rate is set at time of filing</h3>
+      <p>The unemployment rate used to determine your required hours is the rate in your region when you file your claim — not when you were laid off. In practice, apply as quickly as possible after your last day of work.</p>
+
+      <h3>What counts as your region</h3>
+      <p>Canada is divided into 62 EI economic regions. These don't match provincial boundaries. The City of Toronto is its own EI region. Kitchener is its own region. The Niagara Peninsula is separate from Hamilton. Eastern Nova Scotia (Cape Breton and surrounding area) is distinct from Halifax. If you live in Burnaby, you're in the Vancouver EI region (6.3% → 665 hours). If you live in Kelowna, you're in Southern Interior British Columbia — a different region with a 7.9% rate requiring 630 hours. EICalc.ca maps city names directly to their EI regions so you skip the lookup.</p>
+    </section>
+
+    <!-- Ad unit — between sections -->
+    <div class="ad-unit ad-inactive" aria-hidden="true">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-7744853829365165"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Section 4: How EI Benefits Are Calculated -->
+    <section class="authority-section" id="how-benefits-calculated">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2>How EI Benefits Are Calculated</h2>
+      </div>
+      <p>The basic math is straightforward: EI pays you 55% of your average insurable weekly earnings, up to a weekly maximum of $729 (based on the 2026 maximum insurable earnings of $68,900). But the way "average weekly earnings" is defined — using a best-weeks calculation rather than a simple average — is where most people's estimates go wrong.</p>
+
+      <h3>The 55% rule</h3>
+      <p>Take your average insurable weekly earnings and multiply by 0.55. If you normally earned $900 per week, your estimated benefit is $495 per week. If you earned $1,800 per week, you'd calculate $990 — but that gets capped at $729. The $729 ceiling applies to everyone earning more than approximately $1,325 per week in insurable income.</p>
+
+      <h3>Best-weeks calculation</h3>
+      <p>Service Canada doesn't take a simple average of everything you earned. It looks at your best weeks — the weeks in your qualifying period where you earned the most. The number of weeks used depends on your region's unemployment rate. In regions with unemployment above 13%, Service Canada uses your best 14 weeks. In regions at 6% or under, it uses your best 22 weeks. Toronto at 8.1% uses the best 19 weeks. This matters if your earnings were uneven: several high-earning weeks can significantly increase your calculated benefit.</p>
+
+      <div class="threshold-table-wrap">
+        <table class="threshold-table">
+          <thead>
+            <tr>
+              <th>Regional Unemployment Rate</th>
+              <th>Best Weeks Used</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>6% or less</td><td>22 weeks</td></tr>
+            <tr><td>6.1% to 7%</td><td>21 weeks</td></tr>
+            <tr><td>7.1% to 8%</td><td>20 weeks</td></tr>
+            <tr><td>8.1% to 9%</td><td>19 weeks</td></tr>
+            <tr><td>9.1% to 10%</td><td>18 weeks</td></tr>
+            <tr><td>10.1% to 11%</td><td>17 weeks</td></tr>
+            <tr><td>11.1% to 12%</td><td>16 weeks</td></tr>
+            <tr><td>12.1% to 13%</td><td>15 weeks</td></tr>
+            <tr><td>13.1% or more</td><td>14 weeks</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>How duration is determined</h3>
+      <p>Your number of benefit weeks isn't fixed — it comes from a 41-row, 12-column matrix published by Service Canada, which EICalc.ca replicates exactly. The matrix cross-references your total insurable hours against your regional unemployment rate band. A Toronto worker with 700 hours qualifies for 20 benefit weeks. That same worker with 1,000 hours qualifies for 24 weeks. In Eastern Nova Scotia, where unemployment is 10.6%, 700 hours yields 24 weeks.</p>
+
+      <h3>The maximum is 45 weeks</h3>
+      <p>No matter how many hours you've accumulated or how high your region's unemployment rate, the absolute ceiling is 45 weeks of regular benefits. The minimum is 14 weeks, which applies to workers in the lowest-unemployment regions with the fewest qualifying hours.</p>
+
+      <h3>The family supplement</h3>
+      <p>If your net family income is $25,921 or less per year, you have dependent children, and you or your spouse receive the Canada Child Benefit, you may qualify for the EI family supplement. This can push your benefit rate up to 80% of average insurable earnings. Only one spouse can claim the supplement if both are on EI simultaneously.</p>
+
+      <h3>EI is taxable income</h3>
+      <p>EI benefits are fully taxable at both the federal and provincial level. Your T4E slip at tax time will show the total EI received. If you received a large severance payout and also collected EI in the same year, you may owe additional tax at filing.</p>
+    </section>
+
+    <!-- Section 5: Example EI Calculations -->
+    <section class="authority-section" id="example-calculations">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <h2>Example EI Calculations</h2>
+      </div>
+      <p>Three fully worked examples using exact EICalc.calculate() logic and verified 2026 rates.</p>
+
+      <!-- Example 1 -->
+      <div class="example-card example-pass">
+        <div class="example-label example-label-pass">✓ Qualifies</div>
+        <h3>Example 1 — Toronto Software QA Analyst, Laid Off</h3>
+        <ul class="example-inputs">
+          <li><strong>Region:</strong> Toronto, Ontario</li>
+          <li><strong>Regional unemployment rate:</strong> 8.1%</li>
+          <li><strong>Rate band:</strong> 8.1–9.0% (Band D)</li>
+          <li><strong>Hours worked:</strong> 700</li>
+          <li><strong>Average weekly earnings:</strong> $900</li>
+        </ul>
+        <div class="example-steps">
+          <div class="step"><span class="step-label">Step 1 — Eligibility</span><span class="step-value">700 hours ≥ 595 required → <strong>ELIGIBLE</strong></span></div>
+          <div class="step"><span class="step-label">Step 2 — Weekly benefit</span><span class="step-value">$900 × 55% = $495.00/week (under $729 cap)</span></div>
+          <div class="step"><span class="step-label">Step 3 — Benefit weeks</span><span class="step-value">Matrix: 700 hours, Band D → <strong>20 weeks</strong></span></div>
+          <div class="step step-total"><span class="step-label">Total estimated benefits</span><span class="step-value"><strong>$495.00 × 20 = $9,900.00</strong></span></div>
+        </div>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="example-card example-pass">
+        <div class="example-label example-label-pass">✓ Qualifies</div>
+        <h3>Example 2 — Eastern Nova Scotia Fish Plant Worker, Seasonal</h3>
+        <ul class="example-inputs">
+          <li><strong>Region:</strong> Eastern Nova Scotia (Cape Breton)</li>
+          <li><strong>Regional unemployment rate:</strong> 10.6%</li>
+          <li><strong>Rate band:</strong> 10.1–11.0% (Band F)</li>
+          <li><strong>Hours worked:</strong> 600</li>
+          <li><strong>Average weekly earnings:</strong> $750</li>
+        </ul>
+        <div class="example-steps">
+          <div class="step"><span class="step-label">Step 1 — Eligibility</span><span class="step-value">600 hours ≥ 525 required → <strong>ELIGIBLE</strong></span></div>
+          <div class="step"><span class="step-label">Step 2 — Weekly benefit</span><span class="step-value">$750 × 55% = $412.50/week (under $729 cap)</span></div>
+          <div class="step"><span class="step-label">Step 3 — Benefit weeks</span><span class="step-value">Matrix: 600 hours [595–629], Band F → <strong>22 weeks</strong></span></div>
+          <div class="step step-total"><span class="step-label">Total estimated benefits</span><span class="step-value"><strong>$412.50 × 22 = $9,075.00</strong></span></div>
+        </div>
+        <p class="example-note">This seasonal worker qualifies with fewer required hours than a Toronto worker — Eastern Nova Scotia's 10.6% unemployment reflects a fundamentally harder labour market. The $9,075 estimate bridges the off-season.</p>
+      </div>
+
+      <!-- Example 3 -->
+      <div class="example-card example-fail">
+        <div class="example-label example-label-fail">✗ Does Not Qualify</div>
+        <h3>Example 3 — Kitchener Retail Worker, Insufficient Hours</h3>
+        <ul class="example-inputs">
+          <li><strong>Region:</strong> Kitchener, Ontario</li>
+          <li><strong>Regional unemployment rate:</strong> 8.2%</li>
+          <li><strong>Rate band:</strong> 8.1–9.0% (Band D)</li>
+          <li><strong>Hours worked:</strong> 500</li>
+          <li><strong>Average weekly earnings:</strong> $850</li>
+        </ul>
+        <div class="example-steps">
+          <div class="step step-fail"><span class="step-label">Step 1 — Eligibility</span><span class="step-value">500 hours &lt; 595 required → <strong>NOT ELIGIBLE</strong></span></div>
+          <div class="step"><span class="step-label">Weekly benefit (if eligible)</span><span class="step-value">$850 × 55% = $467.50/week</span></div>
+          <div class="step"><span class="step-label">Benefit weeks (if eligible)</span><span class="step-value">Matrix: 500 hours [490–524], Band D → <strong>0 weeks</strong></span></div>
+          <div class="step step-total step-fail"><span class="step-label">Result</span><span class="step-value"><strong>No benefits payable — 95 hours short (~2.4 full-time weeks)</strong></span></div>
+        </div>
+        <p class="example-note">Common for workers who started mid-year, returned from leave, or worked part-time throughout the qualifying period.</p>
+      </div>
+    </section>
+
+    <!-- Ad unit — between sections -->
+    <div class="ad-unit ad-inactive" aria-hidden="true">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-7744853829365165"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Section 6: Common EI Scenarios -->
+    <section class="authority-section" id="common-scenarios">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <h2>Common EI Scenarios</h2>
+      </div>
+
+      <h3>Quit vs. fired</h3>
+      <p>If you're laid off, restructured out, or let go due to a shortage of work, you generally qualify for EI. If you quit, you generally do not — unless you can demonstrate just cause, which Service Canada defines as a situation where "a reasonable person in the same circumstances would also have left." Examples of recognized just cause include: a significant change in your job duties or pay, harassment or abuse by your employer, a dangerous work environment, or relocating to accompany a spouse or common-law partner. Being constructively dismissed — where your employer makes your working conditions so unacceptable that leaving is functionally the same as being fired — can also qualify. If you're fired for misconduct, EI is denied. If you're fired simply because the business is downsizing, that's a shortage of work and you qualify.</p>
+
+      <h3>Severance pay</h3>
+      <p>If you received severance, termination pay, or pay in lieu of notice, Service Canada will apply an allocation period — essentially delaying when your EI benefits can begin. The allocation is calculated by dividing the total severance amount by your normal weekly insurable earnings. If your severance allocation runs 8 weeks, your EI clock doesn't start until those 8 weeks are up. The allocation doesn't change your entitlement; it shifts your start date.</p>
+
+      <h3>Working while on EI</h3>
+      <p>You can work while receiving EI, but you must report all earnings. Under the current working-while-receiving-benefits rules, you keep 50 cents of your EI for every dollar you earn, until your earnings reach 90% of the weekly insurable earnings used to calculate your benefit. Earnings beyond that threshold are deducted dollar-for-dollar. The practical effect: taking part-time work while on EI generally reduces your cheque but doesn't eliminate it entirely.</p>
+
+      <h3>Sickness EI</h3>
+      <p>If you become sick or injured after being laid off, or if you're unable to work due to illness while your claim is active, you may be entitled to up to 26 weeks of EI sickness benefits. Sickness EI pays the same 55% rate, up to $729/week. A medical certificate is required.</p>
+
+      <h3>Maternity and parental EI</h3>
+      <p>Maternity EI covers the 15 weeks immediately around childbirth — available to the birth parent only. Parental benefits cover up to 40 weeks standard (at 55% to a max of $729/week) or up to 69 weeks under the extended option (at 33% to a max of $437/week). The two-parent household can split parental weeks but cannot both receive the same weeks simultaneously.</p>
+
+      <h3>Self-employed EI</h3>
+      <p>Self-employed Canadians who have opted into the EI program can access special benefits — sickness, maternity, parental, compassionate care, and critical illness. They cannot access regular unemployment benefits. The opt-in is voluntary; premium rates are the same as the employee rate (1.63% on insurable earnings in 2026) but without the employer multiplier.</p>
+
+      <h3>EI clawback</h3>
+      <p>If your net income for the year exceeds approximately $79,000 (adjusted annually), you may have to repay a portion of your EI benefits at tax time. The clawback rate is 30% of the lesser of: your net income above the threshold or the total EI you received. First-time claimants and those receiving special benefits (maternity, sickness) are generally exempt.</p>
+    </section>
+
+    <!-- ── Related Calculators ── -->
+    <section class="related-section">
+      <h2 class="related-heading">Related Canadian Calculators</h2>
+      <div id="network-related-calculators" class="related-grid"></div>
+    </section>
+
+    <!-- Ad unit — before footer -->
+    <div class="ad-unit ad-inactive" aria-hidden="true">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-7744853829365165"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+  </main><!-- /main-content -->
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div id="network-footer"></div>
+  </footer>
+
+  <!-- ── Scripts — exact load order ── -->
+  <script src="js/ei-config.js"></script>
+  <script src="js/ei-calculator.js"></script>
+  <script src="js/ads.js"></script>
+  <script src="js/network.js"></script>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var selectedRegion = null;
+    var autocompleteActive = false;
+    var highlightIndex = -1;
+
+    var locationInput = document.getElementById("location-input");
+    var autocompleteList = document.getElementById("autocomplete-list");
+    var regionConfirmed = document.getElementById("region-confirmed");
+
+    // ── Autocomplete ──────────────────────────────────────────────────────────
+    locationInput.addEventListener("input", function () {
+      var q = locationInput.value.trim();
+      selectedRegion = null;
+      regionConfirmed.innerHTML = "";
+      highlightIndex = -1;
+
+      if (q.length < 2) {
+        closeAutocomplete();
+        return;
+      }
+
+      var suggestions = EICalc.suggestRegions(q);
+      if (suggestions.length === 0) {
+        closeAutocomplete();
+        return;
+      }
+
+      autocompleteList.innerHTML = "";
+      suggestions.forEach(function (s, i) {
+        var item = document.createElement("div");
+        item.className = "autocomplete-item";
+        item.setAttribute("role", "option");
+        item.setAttribute("data-index", i);
+        item.innerHTML =
+          '<span class="ac-name">' + escapeHtml(s.name) + ', ' + escapeHtml(s.province) + '</span>' +
+          '<span class="ac-detail">' + s.rate + '% unemployment · ' + s.requiredHours + ' hours required</span>';
+
+        item.addEventListener("mousedown", function (e) {
+          e.preventDefault();
+          selectRegionFromSuggestion(s);
+        });
+        autocompleteList.appendChild(item);
+      });
+
+      autocompleteList.style.display = "block";
+      autocompleteActive = true;
+    });
+
+    locationInput.addEventListener("keydown", function (e) {
+      var items = autocompleteList.querySelectorAll(".autocomplete-item");
+      if (!autocompleteActive || items.length === 0) return;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        highlightIndex = Math.min(highlightIndex + 1, items.length - 1);
+        updateHighlight(items);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        highlightIndex = Math.max(highlightIndex - 1, 0);
+        updateHighlight(items);
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (highlightIndex >= 0 && items[highlightIndex]) {
+          items[highlightIndex].dispatchEvent(new MouseEvent("mousedown"));
+        }
+      } else if (e.key === "Escape") {
+        closeAutocomplete();
+      }
+    });
+
+    locationInput.addEventListener("blur", function () {
+      setTimeout(closeAutocomplete, 150);
+    });
+
+    function updateHighlight(items) {
+      items.forEach(function (item, i) {
+        item.classList.toggle("highlighted", i === highlightIndex);
+      });
     }
-    const scenOutro = document.getElementById('scenarios-outro');
-    if (scenOutro) scenOutro.textContent = `Income above the MIE of ${f(C.MIE)} is not subject to further EI. Every employee at or above the cap pays the same ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}.`;
 
-    // Understanding paragraphs
-    const uEmployer = document.getElementById('understanding-employer');
-    if (uEmployer) uEmployer.textContent = `Your employer is legally required to contribute ${C.EMPLOYER_MULTIPLIER} times your EI premium for each pay period. This cost is borne entirely by the employer — it does not reduce your wages. At the maximum, that's ${f(C.MAX_EMPLOYER_CONTRIBUTION)} per year on top of the ${f(C.MAX_EMPLOYEE_CONTRIBUTION)} deducted from your paycheque.`;
-    const uMIE = document.getElementById('understanding-mie');
-    if (uMIE) uMIE.textContent = `The MIE is the annual earnings ceiling set by ESDC. In ${C.TAX_YEAR}, it is ${f(C.MIE)}. All employment income up to this amount is subject to EI premiums at the ${pct(C.EMPLOYEE_RATE)} rate. Income above ${f(C.MIE)} is not insurable — no EI is deducted on earnings beyond this threshold. The MIE is adjusted annually by the federal government based on wage growth in Canada.`;
-    const uMax = document.getElementById('understanding-max');
-    if (uMax) uMax.textContent = `Once your cumulative EI deductions for the calendar year reach the annual maximum of ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}, your employer stops deducting EI for the rest of the year. This typically happens mid-year for employees earning at or above the MIE of ${f(C.MIE)}. At that point, your net paycheque will increase slightly — equivalent to what was previously being deducted for EI each period. Deductions reset at the beginning of each new calendar year.`;
-
-    // Common scenario paragraphs
-    const sUnder = document.getElementById('scenario-under-mie');
-    if (sUnder) sUnder.textContent = `A salaried employee earning less than the MIE of ${f(C.MIE)} per year will have EI deducted on their full salary at the ${pct(C.EMPLOYEE_RATE)} rate throughout the year. Their deductions will not reach the annual maximum. For example, an employee earning ${f(50000)} pays ${f(Math.round(50000 * C.EMPLOYEE_RATE * 100)/100)} in EI for the year — spread across all pay periods.`;
-    const sAtMIE = document.getElementById('scenario-at-mie');
-    if (sAtMIE) sAtMIE.textContent = `An employee earning ${f(C.MIE)} or more per year will reach the annual EI maximum of ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Because EI is deducted per pay period based on that period's earnings, a higher-income employee will hit the cap earlier in the year. Once the maximum is reached, no further EI is deducted. For a bi-weekly employee earning well above the MIE, this cap may be hit by mid-year.`;
-    const sHigh = document.getElementById('scenario-high-income');
-    if (sHigh) sHigh.textContent = `An employee earning well above the MIE — say ${f(100000)} — pays exactly the same EI as one earning ${f(C.MIE)}: ${f(C.MAX_EMPLOYEE_CONTRIBUTION)}. Income above the MIE is simply not insurable. The cap is absolute: no additional EI applies regardless of how high earnings go. Higher-income employees hit this cap earlier in the calendar year and enjoy EI-free paycheques for the remainder of the year.`;
-
-    // FAQ dynamic — faq-mie and faq-accuracy are now static in HTML
-  });
-
-  // ── EI Calculation Logic ──
-  function calculateEI() {
-    const income = parseFloat(document.getElementById('income').value);
-    if (isNaN(income) || income < 0) {
-      alert('Please enter a valid annual income amount.');
-      return;
+    function closeAutocomplete() {
+      autocompleteList.style.display = "none";
+      autocompleteActive = false;
+      highlightIndex = -1;
     }
 
-    const insurable   = Math.min(income, EI_CONFIG.MIE);
-    const empEI       = Math.min(parseFloat((insurable * EI_CONFIG.EMPLOYEE_RATE).toFixed(2)), EI_CONFIG.MAX_EMPLOYEE_CONTRIBUTION);
-    const erEI        = parseFloat((empEI * EI_CONFIG.EMPLOYER_MULTIPLIER).toFixed(2));
-    const totalEI     = parseFloat((empEI + erEI).toFixed(2));
-    const atCap       = income >= EI_CONFIG.MIE;
+    function selectRegionFromSuggestion(s) {
+      selectedRegion = EICalc.findRegion(s.id) || EICalc.findRegion(s.name);
+      locationInput.value = s.name + ", " + s.province;
+      closeAutocomplete();
+      regionConfirmed.innerHTML =
+        '<span class="rc-check">✓</span> ' +
+        '<strong>' + escapeHtml(s.name) + ', ' + escapeHtml(s.province) + '</strong>' +
+        ' — ' + s.rate + '% unemployment · <strong>' + s.requiredHours + ' hours required</strong>';
+      regionConfirmed.classList.add("visible");
+    }
 
-    const f   = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    const pct = r => (r * 100).toFixed(2) + '%';
+    // ── Run Calculator ────────────────────────────────────────────────────────
+    window.runCalculator = function () {
+      var locationVal = locationInput.value.trim();
+      var hoursVal = document.getElementById("hours-input").value;
+      var earningsVal = document.getElementById("earnings-input").value;
 
-    // Results grid
-    const grid = document.getElementById('resultsGrid');
-    grid.innerHTML = `
-      <div class="result-item highlight">
-        <div class="r-label">Your EI Deduction</div>
-        <div class="r-value">${f(empEI)}</div>
-      </div>
-      <div class="result-item">
-        <div class="r-label">Employer Contribution</div>
-        <div class="r-value">${f(erEI)}</div>
-      </div>
-      <div class="result-item">
-        <div class="r-label">Combined EI Total</div>
-        <div class="r-value">${f(totalEI)}</div>
-      </div>
-      ${atCap ? `<div class="result-item">
-        <div class="r-label">Status</div>
-        <div class="r-value" style="font-size:1rem;">At Annual Cap</div>
-      </div>` : ''}
-    `;
+      if (!locationVal) {
+        alert("Please enter your city or region.");
+        locationInput.focus();
+        return;
+      }
 
-    // Breakdown
-    const breakdown = document.getElementById('resultsBreakdown');
-    breakdown.innerHTML = `
-      <h4>Contribution Breakdown — ${EI_CONFIG.TAX_YEAR} EI Rates</h4>
-      <div class="breakdown-row">
-        <span class="br-label">Annual Income Entered</span>
-        <span class="br-val">${f(income)}</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="br-label">${EI_CONFIG.TAX_YEAR} Maximum Insurable Earnings</span>
-        <span class="br-val">${f(EI_CONFIG.MIE)}</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="br-label">Insurable Earnings (lesser of above)</span>
-        <span class="br-val">${f(insurable)}</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="br-label">Employee Rate Applied</span>
-        <span class="br-val">${pct(EI_CONFIG.EMPLOYEE_RATE)}</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="br-label">Employee EI Deduction</span>
-        <span class="br-val">${f(empEI)}</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="br-label">Employer Multiplier</span>
-        <span class="br-val">${EI_CONFIG.EMPLOYER_MULTIPLIER}×</span>
-      </div>
-      <div class="breakdown-row">
-        <span class="br-label">Employer EI Contribution</span>
-        <span class="br-val">${f(erEI)}</span>
-      </div>
-      <div class="breakdown-row" style="font-weight:600;">
-        <span class="br-label">Total EI (Employee + Employer)</span>
-        <span class="br-val">${f(totalEI)}</span>
-      </div>
-      ${atCap ? `<div class="breakdown-row"><span class="br-label">Note</span><span class="br-val" style="color:var(--teal-dark);">Annual cap reached</span></div>` : ''}
-    `;
+      var hours = parseInt(hoursVal, 10);
+      var earnings = parseFloat(earningsVal);
 
-    // Update results note
-    const note = document.getElementById('resultsNote');
-    if (note) note.innerHTML = `⚠️ <strong>Estimate Only:</strong> This calculator uses ${EI_CONFIG.TAX_YEAR} EI rates (last updated ${EI_CONFIG.LAST_UPDATED}). Results are for informational purposes only and do not constitute official ESDC calculations. Actual deductions may vary based on your specific employment situation and province.`;
+      if (isNaN(hours) || hours < 0) {
+        alert("Please enter a valid number of insurable hours.");
+        document.getElementById("hours-input").focus();
+        return;
+      }
 
-    document.getElementById('resultsSection').classList.add('visible');
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+      if (isNaN(earnings) || earnings < 0) {
+        alert("Please enter a valid average weekly earnings amount.");
+        document.getElementById("earnings-input").focus();
+        return;
+      }
 
-  // FAQ toggle
-  function toggleFaq(btn) {
-    btn.parentElement.classList.toggle('open');
-  }
+      // Use selectedRegion id if available, else pass raw query
+      var locationQuery = selectedRegion ? selectedRegion.id : locationVal;
+      var result = EICalc.calculate(locationQuery, hours, earnings);
 
-  // Enter key
-  document.getElementById('income').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') calculateEI();
-  });
-</script>
+      if (result.error === "REGION_NOT_FOUND") {
+        alert("Region not found. Please select a region from the autocomplete suggestions.");
+        locationInput.focus();
+        return;
+      }
+
+      renderResults(result);
+    };
+
+    function renderResults(r) {
+      var section = document.getElementById("results-section");
+      var banner = document.getElementById("eligibility-banner");
+      var grid = document.getElementById("results-grid");
+      var breakdown = document.getElementById("results-breakdown");
+      var note = document.getElementById("results-note");
+
+      // Banner
+      if (r.eligible) {
+        banner.className = "eligibility-banner eligible";
+        banner.innerHTML =
+          '<span class="banner-icon">✓</span>' +
+          '<span class="banner-text"><strong>Eligible for EI</strong> — You meet the hours requirement for your region.</span>';
+      } else {
+        banner.className = "eligibility-banner ineligible";
+        var shortfall = r.requiredHours - r.hoursWorked;
+        banner.innerHTML =
+          '<span class="banner-icon">✗</span>' +
+          '<span class="banner-text"><strong>Not yet eligible</strong> — You need ' +
+          shortfall + ' more insurable hours (' + r.requiredHours + ' required, ' +
+          r.hoursWorked + ' accumulated).</span>';
+      }
+
+      // Results grid
+      var weeklyDisplay = r.eligible ? EICalc.fmt(r.weeklyBenefit) : "—";
+      var weeksDisplay = r.eligible ? r.benefitWeeks + " weeks" : "—";
+      var totalDisplay = r.eligible ? EICalc.fmt(r.totalBenefits) : "—";
+
+      grid.innerHTML =
+        '<div class="result-item">' +
+          '<div class="r-label">EI Region</div>' +
+          '<div class="r-value r-value-text">' + escapeHtml(r.region.name) + ', ' + escapeHtml(r.region.province) + '</div>' +
+        '</div>' +
+        '<div class="result-item">' +
+          '<div class="r-label">Unemployment Rate</div>' +
+          '<div class="r-value">' + r.unemploymentRate + '%</div>' +
+        '</div>' +
+        '<div class="result-item ' + (r.eligible ? "" : "result-item-warn") + '">' +
+          '<div class="r-label">Hours Required</div>' +
+          '<div class="r-value">' + EICalc.fmtInt(r.requiredHours) + '</div>' +
+        '</div>' +
+        '<div class="result-item ' + (r.eligible ? "highlight" : "result-item-fail") + '">' +
+          '<div class="r-label">Eligibility Status</div>' +
+          '<div class="r-value r-value-status">' + (r.eligible ? "Eligible ✓" : "Not Eligible ✗") + '</div>' +
+        '</div>' +
+        '<div class="result-item highlight">' +
+          '<div class="r-label">Weekly Benefit</div>' +
+          '<div class="r-value">' + weeklyDisplay + '</div>' +
+        '</div>' +
+        '<div class="result-item highlight">' +
+          '<div class="r-label">Benefit Weeks</div>' +
+          '<div class="r-value">' + weeksDisplay + '</div>' +
+        '</div>' +
+        '<div class="result-item highlight">' +
+          '<div class="r-label">Total Est. Benefits</div>' +
+          '<div class="r-value">' + totalDisplay + '</div>' +
+        '</div>';
+
+      // Breakdown
+      var bHTML = '<h4>Calculation Breakdown — ' + escapeHtml(r.region.name) + '</h4>';
+      bHTML += breakdownRow("Region", escapeHtml(r.region.name) + ", " + escapeHtml(r.region.province));
+      bHTML += breakdownRow("Regional Unemployment Rate", r.unemploymentRate + "%");
+      bHTML += breakdownRow("Required Hours (your region)", EICalc.fmtInt(r.requiredHours));
+      bHTML += breakdownRow("Your Hours Accumulated", EICalc.fmtInt(r.hoursWorked));
+      bHTML += breakdownRow("Eligibility", r.eligible ? "✓ Meets requirement" : "✗ Below requirement");
+      if (r.eligible) {
+        bHTML += breakdownRow("Average Weekly Earnings", EICalc.fmt(r.hoursWorked > 0 ? (parseFloat(document.getElementById("earnings-input").value) || 0) : 0));
+        bHTML += breakdownRow("Benefit Rate (ESDC 2026)", (r.benefitRate * 100) + "%");
+        bHTML += breakdownRow("Weekly Benefit (before cap)", EICalc.fmt(parseFloat(document.getElementById("earnings-input").value || 0) * r.benefitRate));
+        bHTML += breakdownRow("Weekly Maximum (2026)", EICalc.fmt(r.maxWeeklyBenefit));
+        bHTML += breakdownRow("Weekly Benefit (after cap)", EICalc.fmt(r.weeklyBenefit));
+        bHTML += breakdownRow("Benefit Weeks (matrix lookup)", r.benefitWeeks + " weeks");
+        bHTML += '<div class="breakdown-row breakdown-total">' +
+          '<span class="br-label">Total Estimated Benefits</span>' +
+          '<span class="br-val">' + EICalc.fmt(r.totalBenefits) + '</span>' +
+          '</div>';
+      }
+      breakdown.innerHTML = bHTML;
+
+      // Note
+      note.innerHTML =
+        '⚠️ <strong>Estimate only.</strong> This calculator uses 2026 ESDC rates and Statistics Canada regional unemployment data (last updated April 2026). ' +
+        'Results are for informational purposes only and do not constitute an official Service Canada eligibility determination. ' +
+        'Actual benefits are calculated by Service Canada using your Record of Employment and official best-weeks methodology. ' +
+        'EICalc.ca is not affiliated with Service Canada or the Government of Canada. ' +
+        '<a href="https://www.canada.ca/en/services/benefits/ei/ei-regular-benefit.html" target="_blank" rel="noopener noreferrer">Apply officially at canada.ca →</a>';
+
+      section.style.display = "block";
+      section.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function breakdownRow(label, val) {
+      return '<div class="breakdown-row">' +
+        '<span class="br-label">' + label + '</span>' +
+        '<span class="br-val">' + val + '</span>' +
+        '</div>';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // Enter key on last input triggers calculator
+    document.getElementById("earnings-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") runCalculator();
+    });
+    document.getElementById("hours-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") runCalculator();
+    });
+
+  })();
+  </script>
+
 </body>
 </html>

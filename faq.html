@@ -3,184 +3,214 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAQ | EI Calculator</title>
-  <meta name="description" content="Frequently asked questions about Employment Insurance (EI) contributions — rates, Maximum Insurable Earnings, employer contributions, Quebec, and more." />
-  <link rel="canonical" href="https://eicalc.ca/faq.html" />
+  <title>EI FAQ 2026 — Frequently Asked Questions | EICalc.ca</title>
+  <meta name="description" content="Answers to the most common EI questions: how many hours you need, what you'll receive, quit vs. fired, severance, maternity, working while on EI, and more." />
+  <link rel="canonical" href="https://eicalc.ca/" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍁</text></svg>" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "EI Calculator",
-    "url": "https://eicalc.ca",
-    "description": "Free Employment Insurance (EI) contribution estimator for Canadian employees.",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "browserRequirements": "Requires JavaScript",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
-    "creator": { "@type": "Organization", "name": "EI Calculator", "url": "https://eicalc.ca" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {"@type":"Question","name":"What is the EI employee premium rate for 2026?","acceptedAnswer":{"@type":"Answer","text":"The employee EI premium rate for 2026 is 1.63% of insurable earnings, up to the Maximum Insurable Earnings of $68,900. The maximum annual employee contribution is $1,123.07."}},
-      {"@type":"Question","name":"What is the Maximum Insurable Earnings for 2026?","acceptedAnswer":{"@type":"Answer","text":"The Maximum Insurable Earnings (MIE) for 2026 is $68,900. EI premiums apply only on income up to this threshold. Income above $68,900 is not subject to EI deductions."}},
-      {"@type":"Question","name":"How much does the employer contribute to EI?","acceptedAnswer":{"@type":"Answer","text":"Employers contribute 1.4 times the employee EI premium. At the maximum, this is $1,572.30 per year per employee. This cost is borne by the employer and does not reduce the employee's wages."}},
-      {"@type":"Question","name":"Do Quebec employees pay the same EI rate?","acceptedAnswer":{"@type":"Answer","text":"No. Quebec employees pay a reduced EI premium rate because they contribute to the Quebec Parental Insurance Plan (QPIP), which funds benefits that overlap with federal EI. The standard rate used on this calculator does not apply to Quebec employees."}}
-    ]
-  }
-  </script>
-  <style>
-    :root{--teal:#00667a;--teal-dark:#004f5e;--teal-light:#e0f4f7;--navy:#0d2137;--navy-mid:#163652;--mist:#edf4f6;--mist-dark:#d4e6eb;--white:#ffffff;--off-white:#f7fafc;--text:#1a2b38;--text-mid:#2e4455;--text-light:#5c7a8a;--border:#cddee6;--radius:10px;--radius-lg:16px;--shadow-sm:0 1px 4px rgba(13,33,55,0.08);--shadow-md:0 4px 16px rgba(13,33,55,0.12);--font-head:'Georgia','Times New Roman',serif;--font-body:'Segoe UI',system-ui,-apple-system,sans-serif;}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:var(--font-body);font-size:16px;line-height:1.65;color:var(--text);background:var(--off-white);}
-    .site-header{background:var(--navy);border-bottom:3px solid var(--teal);position:sticky;top:0;z-index:100;box-shadow:0 4px 16px rgba(13,33,55,0.12);}
-    .header-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;}
-    .site-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-    .logo-maple{font-size:22px;}.logo-text{font-family:var(--font-head);font-size:1.2rem;color:var(--white);font-weight:700;}.logo-text span{color:#4dd4e8;}
-    .site-nav{display:flex;gap:6px;}.site-nav a{color:rgba(255,255,255,0.78);text-decoration:none;font-size:0.85rem;padding:6px 12px;border-radius:6px;transition:all 0.2s;}.site-nav a:hover{background:rgba(255,255,255,0.1);color:#fff;}
-    .page-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:48px 24px;text-align:center;}
-    .page-hero h1{font-family:var(--font-head);color:var(--white);font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px;}
-    .page-hero p{color:rgba(255,255,255,0.7);max-width:580px;margin:0 auto;}
-    .page-content{max-width:800px;margin:40px auto;padding:0 24px 60px;}
-    .faq-category{margin-bottom:36px;}
-    .faq-category-title{font-family:var(--font-head);font-size:1.2rem;color:var(--navy);margin-bottom:16px;padding:12px 18px;background:var(--mist);border-left:4px solid var(--teal);border-radius:0 var(--radius) var(--radius) 0;}
-    .faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
-    .faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 20px;font-size:0.95rem;font-weight:600;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-body);gap:12px;}
-    .faq-q:hover{background:var(--mist);}
-    .faq-arrow{font-size:0.75rem;transition:transform 0.25s;color:var(--teal);flex-shrink:0;}
-    .faq-item.open .faq-arrow{transform:rotate(180deg);}
-    .faq-a{display:none;padding:4px 20px 18px;font-size:0.9rem;color:var(--text-mid);line-height:1.7;}
-    .faq-a p{margin-bottom:10px;}.faq-a p:last-child{margin-bottom:0;}
-    .faq-item.open .faq-a{display:block;}
-    .cta-box{background:var(--navy);border-radius:var(--radius-lg);padding:28px 32px;text-align:center;margin-top:40px;}
-    .cta-box h3{font-family:var(--font-head);color:var(--white);margin-bottom:12px;font-size:1.2rem;}
-    .cta-box p{color:rgba(255,255,255,0.72);font-size:0.95rem;margin-bottom:18px;}
-    .cta-btn{display:inline-block;background:var(--teal);color:var(--white);text-decoration:none;padding:13px 28px;border-radius:var(--radius);font-weight:700;font-size:0.95rem;transition:background 0.2s;}
-    .cta-btn:hover{background:var(--teal-dark);}
-    .site-footer{background:var(--navy);border-top:3px solid var(--teal);color:rgba(255,255,255,0.7);margin-top:60px;}
-    #network-footer{max-width:1100px;margin:0 auto;padding:0 24px;}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding:48px 0 36px;}
-    .footer-col h4{color:var(--white);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;}
-    .footer-col p{font-size:0.85rem;line-height:1.6;margin-bottom:10px;}
-    .footer-col a{display:block;color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.85rem;padding:3px 0;transition:color 0.2s;}
-    .footer-col a:hover{color:var(--white);}
-    .footer-email a{display:inline;color:#7ee8f5;}
-    .footer-hub-desc{display:block;font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:4px;}
-    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding:18px 0;font-size:0.8rem;color:rgba(255,255,255,0.4);text-align:center;}
-    .footer-bottom p{margin:3px 0;}
-    .related-card{display:flex;flex-direction:column;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;transition:border-color 0.2s;}.related-card:hover{border-color:var(--teal);}
-    .related-card-name{font-weight:700;color:var(--navy);font-size:0.95rem;}.related-card-desc{font-size:0.85rem;color:var(--text-mid);}.related-card-link{font-size:0.82rem;font-weight:600;color:var(--teal);}
-    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}.site-nav{display:none;}}
-    @media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7744853829365165" crossorigin="anonymous"></script>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="site-logo"><span class="logo-maple">🍁</span><span class="logo-text">EI<span>Calc</span>.ca</span></a>
-    <nav class="site-nav"><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
-  </div>
-</header>
 
-<section class="page-hero">
-  <h1>FAQ</h1>
-  <p>Common questions about Employment Insurance contributions in Canada.</p>
-</section>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-maple">🍁</span>
+        <span class="logo-text">EI<span>Calc</span>.ca</span>
+      </a>
+      <nav class="site-nav">
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="page-content">
-
-  <div class="faq-category">
-    <div class="faq-category-title">EI Basics</div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What is Employment Insurance (EI)? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>Employment Insurance is a federal program administered by Employment and Social Development Canada (ESDC) that provides temporary income support to eligible Canadians. EI covers situations such as job loss through no fault of your own, illness, pregnancy, parental leave, and caring for a critically ill family member. Both employees and employers contribute mandatory premiums to fund the program.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Why do I have to pay EI premiums? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>EI premiums are mandatory for all employees with insurable employment under the Employment Insurance Act. The premiums fund a shared pool that provides income replacement benefits when eligible workers face qualifying events. Contributions are required regardless of whether you ever file a claim — EI functions as collective insurance rather than an individual savings account.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Who is required to pay EI premiums? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>Most Canadian employees earning insurable income are required to pay EI premiums. This includes full-time, part-time, temporary, and casual workers. Self-employed individuals are generally exempt unless they have voluntarily opted in. Certain employment situations — such as family members working in a family business — may or may not be insurable depending on the specific relationship and circumstances under the Employment Insurance Act.</p></div>
-    </div>
+  <div class="page-hero">
+    <h1>EI Frequently Asked Questions</h1>
+    <p>Straight answers to the questions Canadians actually ask about Employment Insurance.</p>
   </div>
 
-  <div class="faq-category">
-    <div class="faq-category-title">Rates and Calculations</div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What is the EI employee premium rate for 2026? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>The employee EI premium rate for 2026 is 1.63% of insurable earnings, up to the Maximum Insurable Earnings (MIE) of $68,900. The maximum annual employee contribution is $1,123.07. Once you reach this maximum during the year, EI deductions stop for the remainder of that calendar year.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What is the Maximum Insurable Earnings (MIE)? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>The Maximum Insurable Earnings is the annual income ceiling set by ESDC above which EI premiums do not apply. In 2026, the MIE is $68,900. Your EI premium is calculated on the lesser of your actual insurable earnings and the MIE. Income above $68,900 is not subject to EI deductions. The MIE is adjusted annually based on wage growth in Canada.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">How is my EI premium calculated? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>The formula is straightforward: <strong>EI Premium = min(Annual Insurable Earnings, MIE) × 1.63%</strong>. For example, if your annual insurable earnings are $50,000, your EI premium is $50,000 × 1.63% = $815.00. If your earnings are $80,000, the premium is calculated on $68,900 (the MIE cap), giving $68,900 × 1.63% = $1,123.07 — the annual maximum.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">How much does the employer contribute? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>Employers contribute 1.4 times the employee EI premium. At the maximum insurable earnings, this means the employer pays $1,123.07 × 1.4 = $1,572.30 per year per employee. This amount does not come from your wages — it is an additional cost the employer bears on top of your salary. The employer's higher contribution reflects the benefit the EI program provides to businesses, allowing them to temporarily lay off workers with confidence they can rehire them later.</p></div>
-    </div>
-  </div>
+  <main class="page-content">
 
-  <div class="faq-category">
-    <div class="faq-category-title">Annual Cap and Paystubs</div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">When do EI deductions stop during the year? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>EI deductions stop once your cumulative EI premiums for the year reach the annual maximum of $1,123.07. For employees earning significantly above the MIE ($68,900), this cap may be reached mid-year. Once hit, your net pay will increase slightly each period for the remainder of the calendar year — you'll notice the EI line on your paystub shows $0. Deductions reset at the beginning of each new January.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Why does my EI deduction look different on some paycheques? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>EI is deducted each pay period based on that period's insurable earnings. If your pay varies — due to overtime, bonuses, commission, or variable hours — the EI deduction will vary accordingly. Additionally, once you reach the annual maximum mid-year, your EI deduction will drop to zero for the remaining pay periods of that year.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What if I work for multiple employers in one year? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>Each employer independently deducts EI from your paycheque without knowledge of what other employers have deducted. If you work for multiple employers and your combined insurable earnings exceed the MIE, you may over-contribute during the year. Over-contributed EI premiums are refunded through your annual T1 income tax return — the CRA calculates this automatically based on your reported T4 slips.</p></div>
-    </div>
-  </div>
+    <p>All answers use 2026 ESDC rates. For an official determination, apply at <a href="https://www.canada.ca/en/services/benefits/ei/ei-regular-benefit.html" target="_blank" rel="noopener noreferrer">canada.ca/ei</a>. EICalc.ca is not affiliated with Service Canada.</p>
 
-  <div class="faq-category">
-    <div class="faq-category-title">Special Situations</div>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Do Quebec employees pay EI the same way? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>No. Quebec employees pay a reduced EI premium rate because they separately contribute to the Quebec Parental Insurance Plan (QPIP), which provides maternity, paternity, and parental benefits. Since QPIP covers benefits that federal EI would otherwise provide, the federal EI rate for Quebec employees is lower than the standard rate. This calculator uses the standard non-Quebec rate. Quebec residents should use the Quebec-specific rate available from ESDC or Revenu Québec.</p></div>
+      <button class="faq-q" onclick="toggleFaq(this)">How many hours do I need to qualify for EI in Canada? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>It depends entirely on where you live. The required hours range from 420 to 700, set by the unemployment rate in your EI economic region. If you live in Toronto (8.1% unemployment), you need 595 hours. If you're in Quebec City (2.8%), you need 700. If you're in Northern Manitoba (27.8%), the minimum is 420 hours.</p>
+        <p>Enter your city in the calculator on the homepage — it maps your location to its EI region and shows your exact threshold using current Statistics Canada data.</p>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Can self-employed Canadians pay EI? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>Self-employed individuals are not required to pay EI premiums by default and are not eligible for regular EI benefits. However, self-employed Canadians can voluntarily opt into the EI program to access special benefits: maternity, parental, sickness, and compassionate care benefits. If you opt in, you pay only the employee premium (not the employer portion) and must maintain your participation for at least one full year before making a claim.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">What income counts as insurable earnings? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>Insurable earnings generally include wages, salaries, commissions, tips (in most cases), and most other employment income paid under a contract of service. Income that is typically not insurable includes self-employment income (unless opted in), investment income, pension income, rental income, and certain director's fees. The specific rules around insurable earnings are defined under the Employment Insurance Act and related regulations.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">Is this an official Government of Canada tool? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a"><p>No. EICalc.ca is an independent estimation tool and is not affiliated with the Government of Canada, Employment and Social Development Canada (ESDC), or Service Canada. This tool is provided for informational and planning purposes only. For official EI information and rates, visit canada.ca or contact Service Canada directly.</p></div>
-    </div>
-  </div>
 
-  <div class="cta-box">
-    <h3>Ready to estimate your EI contributions?</h3>
-    <p>Use the EI Calculator to get an instant estimate based on your annual earnings.</p>
-    <a href="index.html" class="cta-btn">Go to EI Calculator →</a>
-  </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I get EI if I quit my job? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Generally no — voluntarily leaving without just cause disqualifies you from regular EI benefits. However, "just cause" covers more situations than most people realize: leaving due to harassment, a major pay cut, genuinely unsafe working conditions, domestic violence, or to follow a relocating spouse can all qualify.</p>
+        <p>Being constructively dismissed — where your employer makes working conditions so unacceptable that leaving is functionally the same as being fired — can also qualify. Service Canada makes the determination case-by-case. If there's any argument for just cause, apply anyway and explain your circumstances.</p>
+        <p>If you were fired for misconduct (dishonesty, insubordination, repeated policy violations), you won't qualify either. If you were fired due to shortage of work, restructuring, or position elimination, that's involuntary and you should qualify.</p>
+      </div>
+    </div>
 
-</div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How much will I get on EI? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>The basic benefit is 55% of your average insurable weekly earnings, up to a maximum of $729 per week (based on the 2026 maximum insurable earnings ceiling of $68,900). If you earn $900 per week on average, you'd receive $495/week. If you earn $1,500/week, you'd receive $729 — the weekly cap.</p>
+        <p>Service Canada uses a "best weeks" calculation rather than a simple average — it looks at your highest-earning weeks in the qualifying period. The number of best weeks used (14 to 22) depends on your region's unemployment rate. Benefits are fully taxable, so your take-home will be lower depending on your tax situation.</p>
+        <p>Use the homepage calculator to get an estimate based on your actual hours and earnings.</p>
+      </div>
+    </div>
 
-<footer class="site-footer">
-  <div id="network-footer"></div>
-</footer>
-<script src="js/network.js"></script>
-<script src="js/ads.js"></script>
-<script>
-  function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
-</script>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">When do I get my first EI payment? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>After you apply, Service Canada processes the claim (typically within 28 days, often faster for straightforward claims), and there's a mandatory one-week waiting period at the start of your claim before benefits begin. In practice, most people receive their first payment within three to four weeks of applying.</p>
+        <p>Apply immediately after your last day of work — don't wait. Late applications can cost you benefit weeks. You can apply online at canada.ca even before your ROE has been issued by your employer.</p>
+        <p>If you set up direct deposit, payment arrives faster than a cheque. You also need to complete biweekly reports to keep receiving payments — missing a report can pause your benefits.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long does EI last in Canada? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Between 14 and 45 weeks, depending on two things: how many insurable hours you accumulated, and the unemployment rate in your EI region when you filed. The benefit weeks matrix cross-references your total hours against your regional unemployment band.</p>
+        <p>A Toronto worker with 700 hours gets 20 weeks. That same worker with 1,200 hours gets 28 weeks. In Eastern Nova Scotia (10.6% unemployment), 700 hours yields 24 weeks. The higher your regional unemployment and the more hours you have, the longer your benefits can last — up to the 45-week ceiling.</p>
+        <p>Enter your details in the homepage calculator to see your specific estimate.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is EI taxable income in Canada? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Yes. EI benefits are taxable income at both the federal and provincial level. Service Canada withholds income tax from your payments based on standard federal withholding tables, but the actual amount you owe depends on your total annual income for the year.</p>
+        <p>You'll receive a T4E slip in February showing your total EI received and taxes withheld. If your only income for the year was EI, you may receive a refund since the standard withholding is often higher than what you'd actually owe at lower income levels.</p>
+        <p>If you received a large severance payout and also collected EI in the same year, your total income may push you into a higher bracket, potentially resulting in additional tax owed at filing.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I work while collecting EI? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Yes, and it often makes financial sense to do so. Under the working-while-on-EI rules, you keep 50 cents of your benefit for every dollar you earn, up to 90% of your weekly insurable earnings. Earnings above that threshold are deducted dollar-for-dollar from your benefit.</p>
+        <p>For example, if your weekly EI benefit is $500 and you earn $200 working part-time, you'd keep $100 of your benefit reduction (50% of $200) and receive $400 in EI instead of $500. Your total income for that week: $600 — more than EI alone.</p>
+        <p>You must report all earnings on your biweekly reports — failure to do so is considered fraud and can result in repayment demands, penalties, or disqualification from future claims.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Does severance pay affect my EI? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Yes — severance, termination pay, and pay in lieu of notice all create an allocation period that delays the start of your EI benefits. Service Canada divides your total severance amount by your normal weekly insurable earnings to calculate how many weeks are allocated.</p>
+        <p>If you received $10,000 in severance and normally earned $1,000 per week, your EI start date is pushed back 10 weeks. Your total benefit entitlement doesn't shrink — the clock just starts later. Once the allocation period ends, your claim continues as normal.</p>
+        <p>Vacation pay paid out on termination is also allocated. Retiring allowances (long-service recognition payments) may or may not be allocated depending on the specific amount and circumstances — Service Canada makes this determination on your ROE.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can self-employed people get EI in Canada? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Not regular unemployment benefits — but self-employed Canadians who voluntarily registered with the EI program can access special benefits: maternity (15 weeks), parental (up to 69 weeks), sickness (up to 26 weeks), compassionate care, and critical illness. You must have registered at least 12 months before claiming and paid premiums during that period.</p>
+        <p>The 2026 premium rate for self-employed individuals is 1.63% on insurable earnings — the same as the employee rate, but without the employer's 1.4× multiplier that salaried employees effectively benefit from.</p>
+        <p>A self-employed person who incorporated their business and paid themselves a T4 salary may qualify for regular EI benefits under the standard rules, since their T4 employment is insurable. The key distinction is T4 employment versus self-employment income reported on a T1.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How does maternity and parental EI work? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>EI maternity benefits cover the 15 weeks around childbirth — available only to the birth parent. They pay 55% of average insurable weekly earnings, up to $729/week. You need 600 insurable hours to qualify for special benefits — the threshold doesn't vary by region the way regular EI does.</p>
+        <p>Parental benefits start after maternity ends (or immediately at birth/adoption for the non-birth parent) and can be split between parents. The standard option gives up to 40 combined parental weeks at 55%, maximum $729/week. The extended option gives up to 69 combined weeks at 33%, maximum $437/week. You can't convert between options after the claim starts.</p>
+        <p>If both parents claim EI at the same time, Service Canada allows it — but the maximum total parental weeks still caps at 40 (standard) or 69 (extended). The birth parent taking maternity first, then both sharing parental weeks, is the most common arrangement.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What happens if I move provinces while on EI? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>The benefit weeks you were assigned at the time of filing don't change when you move. Service Canada locks in your regional unemployment rate — and therefore your benefit duration — when you file the claim, not when you relocate. Your payments continue unaffected by the move.</p>
+        <p>If you file a new claim in the future from a different province, your required hours and benefit weeks will be based on the unemployment rate of your new region at that time. So a move from a high-unemployment region to a low-unemployment one could mean you need more hours for your next claim.</p>
+        <p>You should notify Service Canada of your address change, but it won't alter the terms of your current claim.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I collect EI during a strike? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>No — you cannot receive regular EI benefits if you're directly participating in a labour dispute, whether a strike or lockout. This applies to the duration of the dispute for workers at the directly affected workplace.</p>
+        <p>However, if you were laid off before the strike began and your layoff was genuinely unrelated to the dispute, you may still qualify. Similarly, workers at a different employer who are temporarily laid off due to ripple effects from a strike elsewhere may qualify, depending on the specific circumstances.</p>
+        <p>These situations are often contested and Service Canada will investigate the connection between the labour dispute and your reason for unemployment. If you believe your layoff is unrelated to an ongoing dispute, apply and let Service Canada make the determination.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What are insurable hours exactly? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Insurable hours are the actual hours worked and paid under insurable employment — every hour on the clock from every job counts, including regular time, overtime, and hours from a second or third job. The total is accumulated across all insurable employers in your qualifying period.</p>
+        <p>What doesn't count: unpaid hours, volunteer work, self-employment income reported as business income (not T4 wages), or hours worked outside Canada. Your Record of Employment (ROE), which your employer must issue within 5 business days of your separation, is the primary document Service Canada uses to verify your hours.</p>
+        <p>If you worked for multiple employers, you'll have multiple ROEs. Service Canada totals all of them to determine your qualifying hours. If an employer hasn't issued your ROE, apply anyway — Service Canada can request it directly from your employer.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is sickness EI and how do I access it? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>EI sickness benefits pay 55% of your average insurable weekly earnings (up to $729/week) for up to 26 weeks if you're unable to work due to illness, injury, or quarantine. You need 600 insurable hours to qualify — the threshold doesn't vary by region for special benefits.</p>
+        <p>You'll need a medical certificate signed by a licensed health professional confirming you're unable to work and estimating your recovery period. You can apply for sickness benefits even if you're currently on regular EI — if you become ill during your regular claim, you can switch to sickness benefits for up to 26 weeks.</p>
+        <p>Sickness EI is often combined with employer sick leave plans. If your employer's plan pays you 100% of salary for the first two weeks, your EI sickness claim would start after that. The interaction with employer plans varies — check your employment contract or HR policy.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is the EI clawback? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>If your net income for the year exceeds a threshold set annually by the federal government (approximately $79,000 for recent years), you must repay 30% of the lesser of: the amount your net income exceeds the threshold, or the total EI benefits you received that year.</p>
+        <p>For example, if the threshold is $79,000 and your net income was $85,000, you'd repay 30% × $6,000 = $1,800. This is calculated on your T1 return and settled at tax time — you won't be asked to repay during the year.</p>
+        <p>First-time EI claimants in their first and second year of claiming are generally exempt from the clawback for regular benefits. Recipients of special benefits (maternity, parental, sickness, compassionate care) are also typically exempt. If you're not sure, your T4E and T1 general will sort it out at filing.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How do I appeal an EI decision? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>If Service Canada denies your EI claim or makes a decision you believe is wrong, you have 30 days from the date of the decision letter to file a Request for Reconsideration. This is a free internal review — you submit it through My Service Canada Account or by mail, explaining why you disagree and providing any supporting documentation.</p>
+        <p>If reconsideration goes against you, you can appeal to the Social Security Tribunal (SST) General Division within 30 days of the reconsideration decision. The SST process is formal but accessible — you don't need a lawyer, though union representatives and legal aid organizations can help. Hearings can be conducted by telephone or videoconference.</p>
+        <p>Keep all documentation: your ROE, any letters from your employer, your application confirmation, and every piece of correspondence from Service Canada. Note the exact dates of all decisions and the deadlines for response. Missing a 30-day appeal window ends your recourse through that channel.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Does my employer pay EI premiums? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Yes. In 2026, the employee EI premium rate is $1.63 per $100 of insurable earnings, up to a maximum employee contribution of $1,123.07. Your employer pays 1.4 times that amount — $2.28 per $100 of your insurable earnings, up to $1,572.30 maximum.</p>
+        <p>The employer's contribution is an additional payroll cost on top of your wages — it doesn't come out of your paycheque, and it doesn't affect your benefit entitlement. Your EI benefits are based entirely on your own insurable earnings and hours, regardless of what your employer paid in premiums.</p>
+        <p>Employers with approved wage-loss replacement plans (group sickness or disability plans) may qualify for a reduced employer premium rate — currently 1.4× is the standard, but approved plans can lower this multiplier. The premium reduction is shared between employer and employees according to a formula set by ESDC.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">I was just laid off — what should I do right now? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">
+        <p>Apply immediately. You can apply for EI online at canada.ca even before your final paycheque clears or your ROE has been issued. Waiting costs you — applications filed more than four weeks after your last day of work can result in lost benefit weeks that can't be recovered.</p>
+        <p>When you apply online you'll need: your Social Insurance Number (SIN), employment history for the past 52 weeks (employer names, addresses, dates, and reason for each separation), banking information for direct deposit, and your ROE if you have it. If your employer hasn't issued the ROE yet, note this in the application — Service Canada can request it directly.</p>
+        <p>After applying, set up your My Service Canada Account at canada.ca/my-service-canada-account to track your claim status and file your biweekly reports. Missing a biweekly report pauses your payments, so mark the due dates in your calendar.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div id="network-footer"></div>
+  </footer>
+
+  <script src="js/ei-config.js"></script>
+  <script src="js/ei-calculator.js"></script>
+  <script src="js/ads.js"></script>
+  <script src="js/network.js"></script>
+  <script>
+    function toggleFaq(btn) {
+      btn.parentElement.classList.toggle("open");
+    }
+  </script>
+
 </body>
 </html>
