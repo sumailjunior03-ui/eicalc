@@ -688,7 +688,7 @@
       bHTML += breakdownRow("Eligibility", r.eligible ? "✓ Meets requirement" : "✗ Below requirement");
       if (r.eligible) {
         bHTML += breakdownRow("Average Weekly Earnings", EICalc.fmt(r.hoursWorked > 0 ? (parseFloat(document.getElementById("earnings-input").value) || 0) : 0));
-        bHTML += breakdownRow("Benefit Rate (ESDC 2026)", (r.benefitRate * 100) + "%");
+        bHTML += breakdownRow("Benefit Rate (ESDC 2026)", parseFloat((r.benefitRate * 100).toFixed(1)) + "%");
         bHTML += breakdownRow("Weekly Benefit (before cap)", EICalc.fmt(parseFloat(document.getElementById("earnings-input").value || 0) * r.benefitRate));
         bHTML += breakdownRow("Weekly Maximum (2026)", EICalc.fmt(r.maxWeeklyBenefit));
         bHTML += breakdownRow("Weekly Benefit (after cap)", EICalc.fmt(r.weeklyBenefit));
